@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -14,12 +15,14 @@ import frc.robot.Constants;
 public class ArmSubsystem extends SubsystemBase {
   /** Creates a new ArmSubsystem. */
   WPI_TalonSRX armMotor;
+  VictorSP followerArmMotor;
 
   DigitalInput armAtRest;
   DigitalInput armAtAmp;
 
   public ArmSubsystem() {
   armMotor = new WPI_TalonSRX(Constants.Shooter.armMotorCANID);
+  followerArmMotor = new VictorSP(Constants.Shooter.followerMotorPWMID);
 
   armAtRest = new DigitalInput(Constants.Shooter.armDownLimitSwitch);
   armAtAmp = new DigitalInput(Constants.Shooter.armUpLimitSwitch);
@@ -35,16 +38,34 @@ public void StopArm(){
 
 public void ArmJoystickControl(double armCommandSpeed){
 
-  if ((armCommandSpeed > 0 && armAtAmp.get() == false) || (armCommandSpeed <0 && armAtRest.get() == false)){
+  if ((armCommandSpeed > 0 && armAtAmp.get() == false) || (armCommandSpeed < 0 && armAtRest.get() == false)){
    armMotor.set(0);
+   followerArmMotor.set(0);
   }
 
    else {
-     if (armCommandSpeed < -.4){
-       armMotor.set(0.4);
+     if (armCommandSpeed < -Constants.Shooter.armDownSpeedMax){ //pulling back on joystick to move arm down at a speed higher than max
+
+      if (armMotor.getSelectedSensorPosition()/1000 > Constants.Shooter.almostDownValue){ //not near the bottom
+        armMotor.set(Constants.Shooter.armDownSpeedMax);  //go down at max safe speed
+        followerArmMotor.set(Constants.Shooter.armDownSpeedMax); //go down at max safe speed
+      }
+      if (armMotor.getSelectedSensorPosition()/1000 < Constants.Shooter.almostDownValue && armAtRest.get() == true){ //near the bottom but not hitting limit switch yet
+        armMotor.set(Constants.Shooter.armDownSpeedMax*Constants.Shooter.DownReductionFactor);  //go down at % of max safe speed
+        followerArmMotor.set(Constants.Shooter.armDownSpeedMax*Constants.Shooter.DownReductionFactor); //go down at % max safe speed
+      }
+       if (armMotor.getSelectedSensorPosition()/1000 > Constants.Shooter.almostUpValue){ //not near the top
+        armMotor.set(Constants.Shooter.armUpSpeedMax);  //go up at max safe speed
+        followerArmMotor.set(Constants.Shooter.armUpSpeedMax); //go up at max safe speed
+      }
+      if (armMotor.getSelectedSensorPosition()/1000 > Constants.Shooter.almostDownValue && armAtAmp.get() == true){ //near the top but not hitting limit switch yet
+        armMotor.set(Constants.Shooter.armUpSpeedMax*Constants.Shooter.UpReductionFactor);  //go up at % of max safe speed
+        followerArmMotor.set(Constants.Shooter.armUpSpeedMax*Constants.Shooter.UpReductionFactor); //go up at % max safe speed
+      }
      } 
      else{
-     armMotor.set(-armCommandSpeed);
+     armMotor.set(-armCommandSpeed); //if your not over the max speed just do what the joystick says
+     followerArmMotor.set(-armCommandSpeed); //if your not over the max speed just do what the joystick says
      }
    }
 
@@ -56,12 +77,15 @@ public void ArmJoystickControl(double armCommandSpeed){
 public void ArmUpCommand(){
   if (armAtAmp.get() == false){ //if pressing top limit switch
     armMotor.stopMotor();
+    followerArmMotor.stopMotor();
   }
   if (armMotor.getSelectedSensorPosition()/1000 < Constants.Shooter.almostUpValue){ 
-    armMotor.set(Constants.Shooter.armUpSpeed);
+    armMotor.set(Constants.Shooter.armUpSpeedMax);
+    followerArmMotor.set(Constants.Shooter.armDownSpeedMax);
   }
   if (armMotor.getSelectedSensorPosition()/1000 >= Constants.Shooter.almostUpValue){
-    armMotor.set(Constants.Shooter.armUpSpeed*0.2);
+    armMotor.set(Constants.Shooter.armUpSpeedMax*0.2);
+    followerArmMotor.set(Constants.Shooter.armUpSpeedMax*0.2);
   }  
   
  }
@@ -69,17 +93,32 @@ public void ArmUpCommand(){
  public void ArmDownCommand(){
   if (armAtRest.get() == false){ //if pressing bottom limit switch
     armMotor.stopMotor();
+    followerArmMotor.stopMotor();
   }
   if (armMotor.getSelectedSensorPosition()/1000 > Constants.Shooter.almostDownValue){ 
-    armMotor.set(Constants.Shooter.armDownSpeed);
+    armMotor.set(Constants.Shooter.armDownSpeedMax);
+    followerArmMotor.set(Constants.Shooter.armDownSpeedMax);
   }
   if (armMotor.getSelectedSensorPosition()/1000 <= Constants.Shooter.almostDownValue){
-    armMotor.set(Constants.Shooter.armDownSpeed*0.15);
+    armMotor.set(Constants.Shooter.armDownSpeedMax*0.15);
+    followerArmMotor.set(Constants.Shooter.armDownSpeedMax*0.15);
   } 
 }
 
 public void ArmHoldPosition(){
-  armMotor.set(Constants.Shooter.armHoldSpeed);
+  armMotor.stopMotor();
+  followerArmMotor.stopMotor();
+}
+
+public void HangWithArm(){
+  if (armAtRest.get() == false){ //if bottom limit switch is pressed
+    armMotor.stopMotor();
+    followerArmMotor.stopMotor();
+    }
+  if (armAtRest.get() == true){ //if bottom limit switch is not being pressed 
+    armMotor.set(Constants.Shooter.armHangSpeed);
+    followerArmMotor.set(Constants.Shooter.armHangSpeed);
+  }
 }
 
 public double GetArmEncoderPosition(){

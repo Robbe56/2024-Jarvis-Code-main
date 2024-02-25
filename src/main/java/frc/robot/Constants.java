@@ -51,14 +51,9 @@ public final class Constants
     
   }
 
-  public static final class Hanger{
-    public static final int hangMotorID = 1;
-    public static final double HangSpeed = 1;
-    public static final double UnwindSpeed = -.5;
-  }
-
   public static final class Shooter{
     public static final int armMotorCANID = 23;
+    public static final int followerMotorPWMID = 1;
     public static final int feedMotorCANID = 26;
     public static final int leftShooterMotorID = 25;
     public static final int rightShooterMotorID = 24;
@@ -77,16 +72,17 @@ public final class Constants
     public static final double ampShooterSpeed = -0.6;
     public static final double waitTimeForScore = 1;
 
-    public static final double armUpSpeed = -0.6;
-    public static final double armDownSpeed = 0.7;
-    public static final double armHoldSpeed = -0.15;
-    public static final double MaxUpSpeed = -0.6;
-    public static final double MaxDownSpeed = 0.7;
+    public static final double armUpSpeedMax = -0.5;
+    public static final double armDownSpeedMax = 0.3;
+    public static final double DownReductionFactor = 0.15; //15% of speed when going down
+    public static final double UpReductionFactor = 0.20; //20% of speed when going up
+    public static final double armHangSpeed = 0.9;
     
     public static final double feedLowSpeed = -0.5;
     public static final double feedHighSpeed = -1;
     public static final double shootLowSpeed = -0.4;
-    public static final double shootHighSpeed = -.8;
+    public static final double shootHighSpeed = -0.8;
+
     public static final double TimeToRunShooterIntoAmp = 1; //run motors for this many seconds
     public static final double feedBackward = .6;
     public static final double BackUpShooterWheelTime = 0; //run motors backward to get note out of shooter wheels before we run them

@@ -22,6 +22,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.commands.AutoIntake;
 import frc.robot.commands.FireFromSubwoofer;
+import frc.robot.commands.HangWithArmCommand;
 import frc.robot.commands.JoystickArmCommand;
 import frc.robot.commands.MoveArmToSafeZoneShot;
 import frc.robot.commands.MoveArmToSpeakerShot;
@@ -56,6 +57,7 @@ public class RobotContainer
 
   private final JoystickArmCommand m_joystickArmCommand;
   private final RollerButtonCommand m_RollerButtonCommand;
+  private final HangWithArmCommand m_hang;
   private final MoveArmToSpeakerShot m_MoveArmToSpeakerShot;
   private final MoveArmToSafeZoneShot m_MoveArmSafeShot;
 
@@ -83,6 +85,7 @@ public class RobotContainer
 
     m_MoveArmToSpeakerShot = new MoveArmToSpeakerShot(m_arm, operatorController);
     m_MoveArmSafeShot = new MoveArmToSafeZoneShot(m_arm, operatorController);
+    m_hang = new HangWithArmCommand(m_arm, operatorController);
 
     // Register Named Commands
     //Named commands = commands other than driving around that still need to be executed in auto
@@ -158,6 +161,7 @@ public class RobotContainer
     //new JoystickButton(operatorController, 1).onTrue(m_autoAmpSequence);
     new JoystickButton(operatorController, 3).onTrue(m_MoveArmToSpeakerShot);
     new JoystickButton(operatorController, 2).onTrue(m_MoveArmSafeShot);
+    new JoystickButton(operatorController, 10).onTrue(m_hang);
 
 
     //new JoystickButton(operatorController, 6).onTrue(new InstantCommand(m_shooter::FeedMotorFast));

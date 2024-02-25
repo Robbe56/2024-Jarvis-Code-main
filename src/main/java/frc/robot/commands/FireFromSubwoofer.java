@@ -31,6 +31,7 @@ public class FireFromSubwoofer extends Command {
   public void initialize() {
     timer.reset();
     timer.start();
+    arm.ResetArmEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

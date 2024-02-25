@@ -47,6 +47,7 @@ public class AutoIntake extends Command {
       intake.intakeActive();
       shooter.FeedMotorFast();
       arm.StopArm();
+      arm.ResetArmEncoder();
     }
   }
 
