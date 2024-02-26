@@ -38,27 +38,50 @@ public void StopArm(){
 
 public void ArmJoystickControl(double armCommandSpeed){
 
-  if ((armCommandSpeed > 0 && armAtAmp.get() == false) || (armCommandSpeed < 0 && armAtRest.get() == false)){
+  if ((armCommandSpeed < 0 && armAtAmp.get() == false) || (armCommandSpeed > 0 && armAtRest.get() == false)){
    armMotor.set(0);
    followerArmMotor.set(0);
+  } 
+  else if (armCommandSpeed < Constants.Shooter.armUpSpeedMax && armMotor.getSelectedSensorPosition()/1000 < Constants.Shooter.almostUpValue){
+    armMotor.set(Constants.Shooter.armUpSpeedMax);
+    followerArmMotor.set(Constants.Shooter.armUpSpeedMax);
+  }
+    else if (armCommandSpeed < Constants.Shooter.armUpSpeedMax && armMotor.getSelectedSensorPosition()/1000 > Constants.Shooter.almostUpValue){
+    armMotor.set(Constants.Shooter.armUpSpeedMax*Constants.Shooter.UpReductionFactor);
+    followerArmMotor.set(Constants.Shooter.armUpSpeedMax*Constants.Shooter.UpReductionFactor);
+  }
+    else if (armCommandSpeed > Constants.Shooter.armDownSpeedMax && armMotor.getSelectedSensorPosition()/1000 > Constants.Shooter.almostDownValue){
+    armMotor.set(Constants.Shooter.armDownSpeedMax);
+    followerArmMotor.set(Constants.Shooter.armDownSpeedMax);
+  }
+    else if (armCommandSpeed > Constants.Shooter.armDownSpeedMax && armMotor.getSelectedSensorPosition()/1000 < Constants.Shooter.almostDownValue){
+    armMotor.set(Constants.Shooter.armDownSpeedMax*Constants.Shooter.DownReductionFactor);
+    followerArmMotor.set(Constants.Shooter.armDownSpeedMax*Constants.Shooter.DownReductionFactor);
+  }
+  
+    else {
+    armMotor.set(armCommandSpeed);
+    followerArmMotor.set(armCommandSpeed);
   }
 
-   else {
+   /* 
+  else {
      if (armCommandSpeed < -Constants.Shooter.armDownSpeedMax){ //pulling back on joystick to move arm down at a speed higher than max
 
       if (armMotor.getSelectedSensorPosition()/1000 > Constants.Shooter.almostDownValue){ //not near the bottom
         armMotor.set(Constants.Shooter.armDownSpeedMax);  //go down at max safe speed
         followerArmMotor.set(Constants.Shooter.armDownSpeedMax); //go down at max safe speed
       }
-      if (armMotor.getSelectedSensorPosition()/1000 < Constants.Shooter.almostDownValue && armAtRest.get() == true){ //near the bottom but not hitting limit switch yet
+      else if (armMotor.getSelectedSensorPosition()/1000 < Constants.Shooter.almostDownValue && armAtRest.get() == true){ //near the bottom but not hitting limit switch yet
         armMotor.set(Constants.Shooter.armDownSpeedMax*Constants.Shooter.DownReductionFactor);  //go down at % of max safe speed
         followerArmMotor.set(Constants.Shooter.armDownSpeedMax*Constants.Shooter.DownReductionFactor); //go down at % max safe speed
       }
-       if (armMotor.getSelectedSensorPosition()/1000 > Constants.Shooter.almostUpValue){ //not near the top
+      
+       else if (armMotor.getSelectedSensorPosition()/1000 > Constants.Shooter.almostUpValue){ //not near the top
         armMotor.set(Constants.Shooter.armUpSpeedMax);  //go up at max safe speed
         followerArmMotor.set(Constants.Shooter.armUpSpeedMax); //go up at max safe speed
       }
-      if (armMotor.getSelectedSensorPosition()/1000 > Constants.Shooter.almostDownValue && armAtAmp.get() == true){ //near the top but not hitting limit switch yet
+      else if (armMotor.getSelectedSensorPosition()/1000 > Constants.Shooter.almostDownValue && armAtAmp.get() == true){ //near the top but not hitting limit switch yet
         armMotor.set(Constants.Shooter.armUpSpeedMax*Constants.Shooter.UpReductionFactor);  //go up at % of max safe speed
         followerArmMotor.set(Constants.Shooter.armUpSpeedMax*Constants.Shooter.UpReductionFactor); //go up at % max safe speed
       }
@@ -68,6 +91,7 @@ public void ArmJoystickControl(double armCommandSpeed){
      followerArmMotor.set(-armCommandSpeed); //if your not over the max speed just do what the joystick says
      }
    }
+   */
 
    if (armAtRest.get() == false){                      //pushing lower limit switch
     armMotor.setSelectedSensorPosition(0); //reset encoder

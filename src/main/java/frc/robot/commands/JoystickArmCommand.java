@@ -27,7 +27,7 @@ public class JoystickArmCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.ArmJoystickControl(-armController.getRawAxis(3));
+    arm.ArmJoystickControl(armController.getRawAxis(3));
   }
 
 

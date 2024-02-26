@@ -4,21 +4,18 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 
-public class HangWithArmCommand extends Command {
-  /** Creates a new HangWithArmCommand. */
-  private final ArmSubsystem arm;
-  private final XboxController operatorController;
+public class ResetGyro extends Command {
+  /** Creates a new ResetGyro. */
+  private final SwerveSubsystem swerve;
 
-  public HangWithArmCommand(ArmSubsystem m_arm, XboxController m_operatorController) {
+  public ResetGyro(SwerveSubsystem m_swerve) {
     // Use addRequirements() here to declare subsystem dependencies.
-    arm = m_arm;
-    operatorController = m_operatorController;
+    swerve = m_swerve;
 
-    addRequirements(arm);
+    addRequirements(swerve);
   }
 
   // Called when the command is initially scheduled.
@@ -28,18 +25,16 @@ public class HangWithArmCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.HangWithArm();
+    swerve.zeroGyro();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    arm.StopArm();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !operatorController.getRawButton(10); //stop command when operator lets go of start button
+    return false;
   }
 }

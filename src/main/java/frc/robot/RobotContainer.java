@@ -21,17 +21,20 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.commands.AutoIntake;
+import frc.robot.commands.FireFromDistance;
 import frc.robot.commands.FireFromSubwoofer;
 import frc.robot.commands.HangWithArmCommand;
 import frc.robot.commands.JoystickArmCommand;
 import frc.robot.commands.MoveArmToSafeZoneShot;
 import frc.robot.commands.MoveArmToSpeakerShot;
+import frc.robot.commands.ResetGyro;
 import frc.robot.commands.RollerButtonCommand;
 
 import java.io.File;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -60,12 +63,14 @@ public class RobotContainer
   private final HangWithArmCommand m_hang;
   private final MoveArmToSpeakerShot m_MoveArmToSpeakerShot;
   private final MoveArmToSafeZoneShot m_MoveArmSafeShot;
+  private final ResetGyro m_resetGyro;
 
   //auto commands
   private final FireFromSubwoofer m_fireFromSubwoofer;
+  private final FireFromDistance m_fireFromDistance;
   private final AutoIntake m_autoIntake;
 
-  private final SendableChooser<Command> autoChooser;
+  //private final SendableChooser<Command> autoChooser;
 
 
   //public double speedCorrectionFactor;
@@ -86,18 +91,24 @@ public class RobotContainer
     m_MoveArmToSpeakerShot = new MoveArmToSpeakerShot(m_arm, operatorController);
     m_MoveArmSafeShot = new MoveArmToSafeZoneShot(m_arm, operatorController);
     m_hang = new HangWithArmCommand(m_arm, operatorController);
+    m_resetGyro = new ResetGyro(drivebase);
 
     // Register Named Commands
     //Named commands = commands other than driving around that still need to be executed in auto
     m_fireFromSubwoofer = new FireFromSubwoofer(m_arm, m_shooter);
+    m_fireFromDistance = new FireFromDistance(m_arm, m_shooter);
     m_autoIntake = new AutoIntake(m_intake, m_shooter, m_arm);
 
+    
+    /*
     NamedCommands.registerCommand("Fire From Subwoofer", m_fireFromSubwoofer);
+    NamedCommands.registerCommand("Fire From Distance", m_fireFromDistance);
     NamedCommands.registerCommand("Run Intake", m_autoIntake);
+    NamedCommands.registerCommand("Reset Gyro", m_resetGyro);
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
-
+    */
     configureBindings();
 
     AbsoluteDriveAdv closedAbsoluteDriveAdv = new AbsoluteDriveAdv(drivebase,
@@ -155,8 +166,8 @@ public class RobotContainer
   {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
-    new JoystickButton(driverXbox, 8).onTrue((new InstantCommand(drivebase::zeroGyro)));
-    new JoystickButton(driverXbox, 3).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
+    new JoystickButton(driverXbox, 8).onTrue(new InstantCommand(drivebase::zeroGyro));
+    //new JoystickButton(driverXbox, 3).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
 
     //new JoystickButton(operatorController, 1).onTrue(m_autoAmpSequence);
     new JoystickButton(operatorController, 3).onTrue(m_MoveArmToSpeakerShot);
@@ -177,7 +188,8 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    return autoChooser.getSelected();
+    return new PathPlannerAuto("1 Note Amp Side - Blue");
+    //return autoChooser.getSelected();
   }
 
   public void setDriveMode()

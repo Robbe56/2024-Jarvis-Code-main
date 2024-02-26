@@ -64,16 +64,17 @@ public final class Constants
 
     //Arm Encoder Values
     public static final int almostUpValue = 240;
-    public static final int almostDownValue = 90;
-    public static final int aimedAtSpeaker = 94; // was 94 to shoot from subwoofer, 144 to shoot from safe zone
-    public static final int aimedFromSafe = 144; //Shot from safe zone
+    public static final int almostDownValue = 30;
+    public static final int aimedAtSpeaker = 104; // was 104 to shoot from subwoofer, 130 to shoot from safe zone
+    public static final int aimedFromSafe = 130; //Shot from safe zone
+    public static final int aimedFarShot = 155; //far shot from auto mode
     
     public static final double ampFeedSpeed = 0.8;
     public static final double ampShooterSpeed = -0.6;
     public static final double waitTimeForScore = 1;
 
-    public static final double armUpSpeedMax = -0.5;
-    public static final double armDownSpeedMax = 0.3;
+    public static final double armUpSpeedMax = -0.8;
+    public static final double armDownSpeedMax = 0.6;
     public static final double DownReductionFactor = 0.15; //15% of speed when going down
     public static final double UpReductionFactor = 0.20; //20% of speed when going up
     public static final double armHangSpeed = 0.9;
