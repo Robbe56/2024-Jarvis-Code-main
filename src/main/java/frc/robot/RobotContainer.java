@@ -35,6 +35,8 @@ import java.io.File;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.path.PathPlannerTrajectory;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
@@ -44,20 +46,22 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 public class RobotContainer
 {
 
-  // The robot's subsystems and commands are defined here...
+  // Subsystems
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   private final ShooterSubsystem m_shooter = new ShooterSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
   public double armControlValue;
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                          "swerve/neo"));
-  // CommandJoystick rotationController = new CommandJoystick(1);
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  //CommandJoystick driverController = new CommandJoystick(1);
+
+  // Joysticks
   public static XboxController operatorController = new XboxController(2);
   public static XboxController driverXbox = new XboxController(0);
 
+  //Auto Mode Chooser
+  private final SendableChooser<Command> autoChooser;
 
+  //Commands
   private final JoystickArmCommand m_joystickArmCommand;
   private final RollerButtonCommand m_RollerButtonCommand;
   private final HangWithArmCommand m_hang;
@@ -66,21 +70,16 @@ public class RobotContainer
   private final ResetGyro m_resetGyro;
 
   //auto commands
-  private final FireFromSubwoofer m_fireFromSubwoofer;
-  private final FireFromDistance m_fireFromDistance;
-  private final AutoIntake m_autoIntake;
+  //private final FireFromSubwoofer m_fireFromSubwoofer;
+  //private final FireFromDistance m_fireFromDistance;
+  //private final AutoIntake m_autoIntake;
 
-  //private final SendableChooser<Command> autoChooser;
-
-
-  //public double speedCorrectionFactor;
-
+  
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer()
   {
-
     m_joystickArmCommand = new JoystickArmCommand(m_arm, operatorController);  //control arm manually with joysticks
     m_RollerButtonCommand = new RollerButtonCommand(m_shooter, m_intake, driverXbox, operatorController); //control all rollers with buttons
 
@@ -95,20 +94,24 @@ public class RobotContainer
 
     // Register Named Commands
     //Named commands = commands other than driving around that still need to be executed in auto
-    m_fireFromSubwoofer = new FireFromSubwoofer(m_arm, m_shooter);
+    /*m_fireFromSubwoofer = new FireFromSubwoofer(m_arm, m_shooter);
     m_fireFromDistance = new FireFromDistance(m_arm, m_shooter);
-    m_autoIntake = new AutoIntake(m_intake, m_shooter, m_arm);
+    m_autoIntake = new AutoIntake(m_intake, m_shooter, m_arm); 
 
-    
-    /*
-    NamedCommands.registerCommand("Fire From Subwoofer", m_fireFromSubwoofer);
-    NamedCommands.registerCommand("Fire From Distance", m_fireFromDistance);
-    NamedCommands.registerCommand("Run Intake", m_autoIntake);
-    NamedCommands.registerCommand("Reset Gyro", m_resetGyro);
+    //Set up PathPlanner and Autos
+    drivebase.setupPathPlanner();
+    */
+
+    //PathPlanner Named Commands
+    NamedCommands.registerCommand("Fire From Subwoofer", new FireFromSubwoofer(m_arm, m_shooter));
+    NamedCommands.registerCommand("Fire From Distance", new FireFromDistance(m_arm, m_shooter));
+    NamedCommands.registerCommand("Run Intake", new AutoIntake(m_intake, m_shooter, m_arm));
+    //NamedCommands.registerCommand("Reset Gyro", m_resetGyro);
+   
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
-    */
+  
     configureBindings();
 
     AbsoluteDriveAdv closedAbsoluteDriveAdv = new AbsoluteDriveAdv(drivebase,
@@ -188,8 +191,8 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    return new PathPlannerAuto("1 Note Amp Side - Blue");
-    //return autoChooser.getSelected();
+    //return new PathPlannerAuto("1 Note Amp Side - Blue");
+    return autoChooser.getSelected();
   }
 
   public void setDriveMode()

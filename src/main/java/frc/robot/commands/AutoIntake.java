@@ -57,6 +57,7 @@ public class AutoIntake extends Command {
     intake.intakeRest();
     shooter.StopFeedRoller();
     arm.StopArm();
+    timer.stop();
   }
 
   // Returns true when the command should end.
