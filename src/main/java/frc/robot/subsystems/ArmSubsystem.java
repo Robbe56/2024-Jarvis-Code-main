@@ -105,12 +105,13 @@ public void ArmUpCommand(){
   }
   if (armMotor.getSelectedSensorPosition()/1000 < Constants.Shooter.almostUpValue){ 
     armMotor.set(Constants.Shooter.armUpSpeedMax);
-    followerArmMotor.set(Constants.Shooter.armDownSpeedMax);
+    followerArmMotor.set(Constants.Shooter.armUpSpeedMax);
   }
-  if (armMotor.getSelectedSensorPosition()/1000 >= Constants.Shooter.almostUpValue){
+  /*if (armMotor.getSelectedSensorPosition()/1000 >= Constants.Shooter.almostUpValue){
     armMotor.set(Constants.Shooter.armUpSpeedMax*0.2);
     followerArmMotor.set(Constants.Shooter.armUpSpeedMax*0.2);
-  }  
+  } 
+  */ 
   
  }
 

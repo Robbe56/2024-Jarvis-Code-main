@@ -27,7 +27,7 @@ public final class Constants
   public static final class Auton
   {
 
-    public static final PIDFConfig TranslationPID = new PIDFConfig(0.02, 0, 0);
+    public static final PIDFConfig TranslationPID = new PIDFConfig(0.015, 0, 0);
     public static final PIDFConfig angleAutoPID   = new PIDFConfig(0.04, 0, 0.01);
 
     public static final double MAX_ACCELERATION = .1;
@@ -47,7 +47,7 @@ public final class Constants
     public static final double bottomMotorIntakeSpeed = 1;
     public static final int SpinButton = 1;
     public static final double SpitOutSpeed = -1;
-    public static final double IntakeWatchdog = 5;//intake will run for this long then command will stop
+    public static final double IntakeWatchdog = 6;//intake will run for this long then command will stop
     
   }
 
@@ -63,10 +63,10 @@ public final class Constants
     public static final int noteInFeederSensor = 0;
 
     //Arm Encoder Values
-    public static final int almostUpValue = 240;
-    public static final int almostDownValue = 30;
-    public static final int aimedAtSpeaker = 104; // was 104 to shoot from subwoofer, 130 to shoot from safe zone
-    public static final int aimedFromSafe = 130; //Shot from safe zone
+    public static final int almostUpValue = 195;
+    public static final int almostDownValue = 25;
+    public static final int aimedAtSpeaker = 94; // was 104 to shoot from subwoofer, 130 to shoot from safe zone
+    public static final int aimedFromSafe = 120; //Shot from safe zone
     public static final int aimedFarShot = 135; //far shot from auto mode
     
     public static final double ampFeedSpeed = 0.8;
@@ -74,9 +74,9 @@ public final class Constants
     public static final double waitTimeForScore = 1;
 
     public static final double armUpSpeedMax = -0.8;
-    public static final double armDownSpeedMax = 0.6;
+    public static final double armDownSpeedMax = 0.65;
     public static final double DownReductionFactor = 0.15; //15% of speed when going down
-    public static final double UpReductionFactor = 0.20; //20% of speed when going up
+    public static final double UpReductionFactor = 0.50; //50% of speed when going up
     public static final double armHangSpeed = 0.9;
     
     public static final double feedLowSpeed = -0.5;
@@ -90,8 +90,8 @@ public final class Constants
     
     
     //auto mode values
-    public static final double ShooterSpinUpTime = 1.5;
-    public static final double NoteInAirTime = 2;
+    public static final double ShooterSpinUpTime = 1.2;
+    public static final double NoteInAirTime = 1.5;
     
   }
 

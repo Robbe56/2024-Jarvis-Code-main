@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3491521419562087,
-      "y": 5.550936522700434
+      "x": 0.69,
+      "y": 4.39
     },
-    "rotation": 0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -24,7 +24,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "1 Note Center - Blue"
+                  "pathName": "Start Source Side - B"
                 }
               },
               {
@@ -37,34 +37,15 @@
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "Fire From Distance"
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Drive to 2 Center - Blue"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Run Intake"
-                }
-              }
-            ]
+            "pathName": "Return Source - Blue"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Fire From Distance"
+            "name": "Fire From Subwoofer"
           }
         }
       ]
