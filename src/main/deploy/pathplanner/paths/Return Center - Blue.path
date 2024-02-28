@@ -3,66 +3,72 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.270256540513081,
-        "y": 7.449541822160567
+        "x": 8.27,
+        "y": 5.76
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.99916440717332,
-        "y": 7.0728870958125984
+        "x": 8.161720169594187,
+        "y": 5.8313632011879415
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 4.522788845862997,
-        "y": 6.8157068696448375
+        "x": 6.62,
+        "y": 3.92
       },
       "prevControl": {
-        "x": 6.443366039371163,
-        "y": 7.178742802564065
+        "x": 7.337600608624582,
+        "y": 4.25037761198609
       },
       "nextControl": {
-        "x": 2.75249493481008,
-        "y": 6.481078142555567
+        "x": 5.084879710663871,
+        "y": 3.2132428300550746
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 0.6933452953924436,
-        "y": 6.663465994549679
+        "x": 1.36,
+        "y": 5.54
       },
       "prevControl": {
-        "x": 1.501393017051367,
-        "y": 7.8813929953109545
+        "x": 4.037061987167452,
+        "y": 6.736093472186945
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 56.12722470686608,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.5,
-    "maxAcceleration": 3.5,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 60.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Blue Paths",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 59.89072574141525,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

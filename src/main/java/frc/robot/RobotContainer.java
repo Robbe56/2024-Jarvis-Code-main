@@ -84,11 +84,11 @@ public class RobotContainer
 
     //PathPlanner Named Commands
     NamedCommands.registerCommand("Fire From Subwoofer", new FireFromSubwoofer(m_arm, m_shooter));
-    NamedCommands.registerCommand("Fire From Distance", new FireFromDistance(m_arm, m_shooter));
+    NamedCommands.registerCommand("Fire From Distance", new FireFromDistance(m_arm, m_shooter, m_intake));
     NamedCommands.registerCommand("Run Intake", new AutoIntake(m_intake, m_shooter, m_arm));
     
     m_joystickArmCommand = new JoystickArmCommand(m_arm, operatorController);  //control arm manually with joysticks
-    m_RollerButtonCommand = new RollerButtonCommand(m_shooter, m_intake, driverXbox, operatorController); //control all rollers with buttons
+    m_RollerButtonCommand = new RollerButtonCommand(m_shooter, m_intake, m_arm, driverXbox, operatorController); //control all rollers with buttons
 
     m_intake.setDefaultCommand(m_RollerButtonCommand);
     m_shooter.setDefaultCommand(m_RollerButtonCommand);

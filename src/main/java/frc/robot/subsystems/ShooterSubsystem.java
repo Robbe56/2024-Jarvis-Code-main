@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -20,6 +21,8 @@ WPI_VictorSPX leftShooterMotor;
 
 public DigitalInput noteInFeeder;
 
+public AnalogInput noteSensorAnalog;
+
 double armCommandSpeed;
 
   public ShooterSubsystem() {
@@ -30,6 +33,8 @@ rightShooterMotor = new WPI_VictorSPX(Constants.Shooter.rightShooterMotorID);
 leftShooterMotor = new WPI_VictorSPX(Constants.Shooter.leftShooterMotorID);
 
 noteInFeeder = new DigitalInput(Constants.Shooter.noteInFeederSensor);
+
+noteSensorAnalog = new AnalogInput(Constants.Shooter.analogNoteSensor);
 
 
 feedMotor.configFactoryDefault();
@@ -100,8 +105,20 @@ leftShooterMotor.configFactoryDefault();
     leftShooterMotor.set(Constants.Shooter.shootHighSpeed);
    }
 
+    public void ShooterAutoFarSpeed(){
+    rightShooterMotor.set(Constants.Shooter.shootAutoDistance);
+    leftShooterMotor.set(Constants.Shooter.shootAutoDistance);
+   }
+
    public boolean getNoteSensor(){
     return noteInFeeder.get();
+   }
+
+   public boolean getAnalogNoteSensor(){
+    if (noteSensorAnalog.getValue() < Constants.Shooter.noteSensorThreshold){
+      return true;
+    }
+    else return false;
    }
 
 
@@ -110,6 +127,8 @@ leftShooterMotor.configFactoryDefault();
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putBoolean("Note Sensor", noteInFeeder.get());
+    SmartDashboard.putNumber("Note Sensor Value", noteSensorAnalog.getValue());
+    SmartDashboard.putBoolean("Is Note In Shooter?", getAnalogNoteSensor());
 
   }
 }

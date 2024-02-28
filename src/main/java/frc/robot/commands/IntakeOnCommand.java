@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -13,12 +13,14 @@ public class IntakeOnCommand extends Command {
   /** Creates a new IntakeControl. */
   private final IntakeSubsystem intake;
   private final ShooterSubsystem shooter;
+  private final ArmSubsystem arm;
 
-  public IntakeOnCommand(IntakeSubsystem m_intake, ShooterSubsystem m_shooter) {
+  public IntakeOnCommand(IntakeSubsystem m_intake, ShooterSubsystem m_shooter, ArmSubsystem m_arm)  {
     intake = m_intake;
     shooter = m_shooter;
+    arm = m_arm;
   
-    addRequirements(intake, shooter);
+    addRequirements(intake, shooter, arm);
    // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -30,11 +32,11 @@ public class IntakeOnCommand extends Command {
   @Override
   public void execute() {
     
-  if(shooter.noteInFeeder.get() == false){ //if Feeder Sensor sees a note
+  if(shooter.noteInFeeder.get() || arm.GetBottomLimitSwitch() == true){ //if Feeder Sensor sees a note or if arm is not down
     intake.intakeRest();
     }
 
-  if(shooter.noteInFeeder.get() == true){ //if Feeder Sensor does not see a note
+  if(shooter.noteInFeeder.get() == true && arm.GetBottomLimitSwitch() == false){ //if Feeder Sensor does not see a note and arm is down
     intake.intakeActive();
     shooter.FeedMotorFast();
     }

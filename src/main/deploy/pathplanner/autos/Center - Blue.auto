@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.69,
-      "y": 4.39
+      "x": 1.36086297850199,
+      "y": 5.539225686154654
     },
-    "rotation": -60.0
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -18,13 +18,13 @@
           }
         },
         {
-          "type": "deadline",
+          "type": "race",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Start Source Side - Blue"
+                  "pathName": "Start Center - Blue"
                 }
               },
               {
@@ -34,12 +34,6 @@
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Return Source - Blue"
           }
         },
         {
@@ -55,7 +49,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Get 3rd Source - Blue"
+                  "pathName": "Get 2nd Center - Blue"
                 }
               },
               {
@@ -65,6 +59,31 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Return Center - Blue"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Run Intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Fire From Distance"
           }
         }
       ]

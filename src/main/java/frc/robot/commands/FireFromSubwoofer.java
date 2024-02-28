@@ -39,10 +39,13 @@ public class FireFromSubwoofer extends Command {
   public void execute() {
     
     // arm contol
-    if (arm.GetArmEncoderPosition() < Constants.Shooter.aimedAtSpeaker){
-      arm.ArmUpCommand();
+    if (timer.get() < Constants.Shooter.NoteInAirTime){
+      if (arm.GetArmEncoderPosition() < Constants.Shooter.aimedAtSpeaker){
+        arm.ArmUpCommand();
     }
-    else {arm.ArmHoldPosition();}
+      else {arm.ArmHoldPosition();}
+
+  } else arm.ArmDownCommand();
     
     //shooter control
     if (timer.get() < Constants.Shooter.ShooterSpinUpTime){
@@ -67,6 +70,6 @@ public class FireFromSubwoofer extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.get() > Constants.Shooter.NoteInAirTime;
+    return (timer.get() > Constants.Shooter.NoteInAirTime && !arm.GetBottomLimitSwitch()); //shots have been fired and arm is back down
   }
 }

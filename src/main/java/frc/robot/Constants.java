@@ -61,13 +61,15 @@ public final class Constants
     public static final int armDownLimitSwitch = 8;
     public static final int armUpLimitSwitch = 9;
     public static final int noteInFeederSensor = 0;
+    public static final int analogNoteSensor = 1;
+    public static final double noteSensorThreshold = 3;
 
     //Arm Encoder Values
     public static final int almostUpValue = 195;
     public static final int almostDownValue = 25;
     public static final int aimedAtSpeaker = 94; // was 104 to shoot from subwoofer, 130 to shoot from safe zone
-    public static final int aimedFromSafe = 120; //Shot from safe zone
-    public static final int aimedFarShot = 135; //far shot from auto mode
+    public static final int aimedFromSafe = 125; //Shot from safe zone
+    public static final int aimedFarShot = 145; //far shot from auto mode
     
     public static final double ampFeedSpeed = 0.8;
     public static final double ampShooterSpeed = -0.6;
@@ -82,7 +84,8 @@ public final class Constants
     public static final double feedLowSpeed = -0.5;
     public static final double feedHighSpeed = -1;
     public static final double shootLowSpeed = -0.4;
-    public static final double shootHighSpeed = -0.8;
+    public static final double shootHighSpeed = -0.7;
+    public static final double shootAutoDistance = -.85;
 
     public static final double TimeToRunShooterIntoAmp = 1; //run motors for this many seconds
     public static final double feedBackward = .6;
@@ -92,6 +95,10 @@ public final class Constants
     //auto mode values
     public static final double ShooterSpinUpTime = 1.2;
     public static final double NoteInAirTime = 1.5;
+    public static final double UnJamTime = 0.1 ;
+    public static final double intakeTimer = 0;
+    
+    
     
   }
 
@@ -104,5 +111,7 @@ public final class Constants
     public static final double RIGHT_X_DEADBAND = 0.05;
     public static final double TURN_CONSTANT    = 6;
   }
+
+  
 
 }

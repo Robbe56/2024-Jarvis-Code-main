@@ -38,18 +38,12 @@ public class AutoIntake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (arm.GetBottomLimitSwitch() == false){
-      intake.intakeRest();
-      shooter.StopFeedRoller();
-      arm.ArmDownCommand();
-    }
-    else{
+
       intake.intakeActive();
       shooter.FeedMotorFast();
       arm.StopArm();
-      arm.ResetArmEncoder();
     }
-  }
+
 
   // Called once the command ends or is interrupted.
   @Override
@@ -57,6 +51,7 @@ public class AutoIntake extends Command {
     intake.intakeRest();
     shooter.StopFeedRoller();
     arm.StopArm();
+    arm.ResetArmEncoder();
     timer.stop();
   }
 

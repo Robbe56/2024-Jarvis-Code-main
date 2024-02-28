@@ -18,19 +18,19 @@
           }
         },
         {
-          "type": "deadline",
+          "type": "race",
           "data": {
             "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Start Amp Side - B"
-                }
-              },
               {
                 "type": "named",
                 "data": {
                   "name": "Run Intake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Start Amp Side - B"
                 }
               }
             ]
@@ -43,34 +43,47 @@
           }
         },
         {
-          "type": "deadline",
+          "type": "race",
           "data": {
             "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Get 2nd Amp - Blue"
-                }
-              },
               {
                 "type": "named",
                 "data": {
                   "name": "Run Intake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Get 2nd Amp - Blue"
                 }
               }
             ]
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "Return Amp - Blue"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Run Intake"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Return Amp - Blue"
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Fire From Subwoofer"
+            "name": "Fire From Distance"
           }
         }
       ]

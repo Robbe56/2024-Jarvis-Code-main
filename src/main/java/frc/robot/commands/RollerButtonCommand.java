@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -15,16 +16,18 @@ public class RollerButtonCommand extends Command {
   /** Creates a new UnjamCommand. */
   ShooterSubsystem shooter;
   IntakeSubsystem intake;
+  ArmSubsystem arm;
   XboxController driveController;
   XboxController operatorController;
   Timer timer;
 
-    public RollerButtonCommand(ShooterSubsystem m_shooter, IntakeSubsystem m_intake, XboxController m_driver, XboxController m_operator) {
+    public RollerButtonCommand(ShooterSubsystem m_shooter, IntakeSubsystem m_intake, ArmSubsystem m_arm, XboxController m_driver, XboxController m_operator) {
     // Use addRequirements() here to declare subsystem dependencies.
     driveController = m_driver;
     operatorController = m_operator;
     shooter = m_shooter;
     intake = m_intake;
+    arm = m_arm;
     timer = new Timer();
 
     addRequirements(shooter);
@@ -46,7 +49,7 @@ public class RollerButtonCommand extends Command {
 
     if ((driveController.getLeftBumper() == true || driveController.getRightBumper() == true) 
     && 
-    shooter.getNoteSensor() == true){
+    shooter.getNoteSensor() == true && arm.GetBottomLimitSwitch() == false){
       intake.intakeActive();
       shooter.FeedMotorFast();
     }
