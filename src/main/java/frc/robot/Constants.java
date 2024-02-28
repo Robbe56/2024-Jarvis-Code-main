@@ -61,6 +61,7 @@ public final class Constants
     public static final int armDownLimitSwitch = 8;
     public static final int armUpLimitSwitch = 9;
     public static final int noteInFeederSensor = 0;
+    public static final int LEDPWMPort = 0;
     public static final int analogNoteSensor = 1;
     public static final double noteSensorThreshold = 3;
 

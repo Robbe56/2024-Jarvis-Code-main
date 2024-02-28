@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.36086297850199,
-      "y": 5.539225686154654
+      "x": 15.1,
+      "y": 5.55
     },
-    "rotation": 0
+    "rotation": 180.0
   },
   "command": {
     "type": "sequential",
@@ -24,7 +24,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Start Center - Blue"
+                  "pathName": "Center Get Close - Red"
                 }
               },
               {
@@ -39,7 +39,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Center Get Back - Blue"
+            "pathName": "Center Get Back - Red"
           }
         },
         {
@@ -55,7 +55,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Get 2nd Center - Blue"
+                  "pathName": "Center Get Far - Red"
                 }
               },
               {
@@ -68,16 +68,9 @@
           }
         },
         {
-          "type": "race",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Return Center - Blue"
-                }
-              }
-            ]
+            "pathName": "Center Return - Red"
           }
         },
         {
@@ -89,6 +82,6 @@
       ]
     }
   },
-  "folder": "Blue Autos",
+  "folder": "Red Autos",
   "choreoAuto": false
 }
