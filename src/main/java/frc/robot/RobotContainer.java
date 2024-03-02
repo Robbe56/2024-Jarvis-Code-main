@@ -19,17 +19,19 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.HangSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.commands.AutoIntake;
 import frc.robot.commands.FireFromDistance;
 import frc.robot.commands.FireFromSubwoofer;
-import frc.robot.commands.HangWithArmCommand;
+import frc.robot.commands.HangOnChainCommand;
 import frc.robot.commands.JoystickArmCommand;
 import frc.robot.commands.MoveArmToSafeZoneShot;
 import frc.robot.commands.MoveArmToSpeakerShot;
 import frc.robot.commands.ResetGyro;
 import frc.robot.commands.RollerButtonCommand;
+import frc.robot.commands.UnwindHangerCommand;
 
 import java.io.File;
 
@@ -50,6 +52,8 @@ public class RobotContainer
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   private final ShooterSubsystem m_shooter = new ShooterSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
+  private final HangSubsystem m_hang = new HangSubsystem();
+
   public double armControlValue;
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                          "swerve/neo"));
@@ -64,7 +68,8 @@ public class RobotContainer
   //Commands
   private final JoystickArmCommand m_joystickArmCommand;
   private final RollerButtonCommand m_RollerButtonCommand;
-  private final HangWithArmCommand m_hang;
+  private final HangOnChainCommand m_hangCommand;
+  private final UnwindHangerCommand m_unwind;
   private final MoveArmToSpeakerShot m_MoveArmToSpeakerShot;
   private final MoveArmToSafeZoneShot m_MoveArmSafeShot;
 
@@ -96,7 +101,8 @@ public class RobotContainer
 
     m_MoveArmToSpeakerShot = new MoveArmToSpeakerShot(m_arm, operatorController);
     m_MoveArmSafeShot = new MoveArmToSafeZoneShot(m_arm, operatorController);
-    m_hang = new HangWithArmCommand(m_arm, operatorController);
+    m_hangCommand = new HangOnChainCommand(m_hang, m_arm, operatorController);
+    m_unwind = new UnwindHangerCommand(m_hang, m_arm, operatorController);
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -181,7 +187,9 @@ public class RobotContainer
     //new JoystickButton(operatorController, 1).onTrue(m_autoAmpSequence);
     new JoystickButton(operatorController, 3).onTrue(m_MoveArmToSpeakerShot);
     new JoystickButton(operatorController, 2).onTrue(m_MoveArmSafeShot);
-    new JoystickButton(operatorController, 10).onTrue(m_hang);
+
+    new JoystickButton(operatorController, 8).onTrue(m_unwind);
+    new JoystickButton(operatorController, 10).onTrue(m_hangCommand);
 
 
     //new JoystickButton(operatorController, 6).onTrue(new InstantCommand(m_shooter::FeedMotorFast));

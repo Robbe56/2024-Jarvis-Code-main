@@ -15,15 +15,13 @@ import frc.robot.Constants;
 public class ArmSubsystem extends SubsystemBase {
   /** Creates a new ArmSubsystem. */
   WPI_TalonSRX armMotor;
-  VictorSP followerArmMotor;
 
   DigitalInput armAtRest;
   DigitalInput armAtAmp;
 
   public ArmSubsystem() {
   armMotor = new WPI_TalonSRX(Constants.Shooter.armMotorCANID);
-  followerArmMotor = new VictorSP(Constants.Shooter.followerMotorPWMID);
-
+  
   armAtRest = new DigitalInput(Constants.Shooter.armDownLimitSwitch);
   armAtAmp = new DigitalInput(Constants.Shooter.armUpLimitSwitch);
   
@@ -40,28 +38,22 @@ public void ArmJoystickControl(double armCommandSpeed){
 
   if ((armCommandSpeed < 0 && armAtAmp.get() == false) || (armCommandSpeed > 0 && armAtRest.get() == false)){
    armMotor.set(0);
-   followerArmMotor.set(0);
   } 
   else if (armCommandSpeed < Constants.Shooter.armUpSpeedMax && armMotor.getSelectedSensorPosition()/1000 < Constants.Shooter.almostUpValue){
     armMotor.set(Constants.Shooter.armUpSpeedMax);
-    followerArmMotor.set(Constants.Shooter.armUpSpeedMax);
   }
     else if (armCommandSpeed < Constants.Shooter.armUpSpeedMax && armMotor.getSelectedSensorPosition()/1000 > Constants.Shooter.almostUpValue){
     armMotor.set(Constants.Shooter.armUpSpeedMax*Constants.Shooter.UpReductionFactor);
-    followerArmMotor.set(Constants.Shooter.armUpSpeedMax*Constants.Shooter.UpReductionFactor);
   }
     else if (armCommandSpeed > Constants.Shooter.armDownSpeedMax && armMotor.getSelectedSensorPosition()/1000 > Constants.Shooter.almostDownValue){
     armMotor.set(Constants.Shooter.armDownSpeedMax);
-    followerArmMotor.set(Constants.Shooter.armDownSpeedMax);
   }
     else if (armCommandSpeed > Constants.Shooter.armDownSpeedMax && armMotor.getSelectedSensorPosition()/1000 < Constants.Shooter.almostDownValue){
     armMotor.set(Constants.Shooter.armDownSpeedMax*Constants.Shooter.DownReductionFactor);
-    followerArmMotor.set(Constants.Shooter.armDownSpeedMax*Constants.Shooter.DownReductionFactor);
   }
   
     else {
     armMotor.set(armCommandSpeed);
-    followerArmMotor.set(armCommandSpeed);
   }
 
    /* 
@@ -101,11 +93,9 @@ public void ArmJoystickControl(double armCommandSpeed){
 public void ArmUpCommand(){
   if (armAtAmp.get() == false){ //if pressing top limit switch
     armMotor.stopMotor();
-    followerArmMotor.stopMotor();
   }
   if (armMotor.getSelectedSensorPosition()/1000 < Constants.Shooter.almostUpValue){ 
     armMotor.set(Constants.Shooter.armUpSpeedMax);
-    followerArmMotor.set(Constants.Shooter.armUpSpeedMax);
   }
   /*if (armMotor.getSelectedSensorPosition()/1000 >= Constants.Shooter.almostUpValue){
     armMotor.set(Constants.Shooter.armUpSpeedMax*0.2);
@@ -118,33 +108,19 @@ public void ArmUpCommand(){
  public void ArmDownCommand(){
   if (armAtRest.get() == false){ //if pressing bottom limit switch
     armMotor.stopMotor();
-    followerArmMotor.stopMotor();
   }
   if (armMotor.getSelectedSensorPosition()/1000 > Constants.Shooter.almostDownValue){ 
     armMotor.set(Constants.Shooter.armDownSpeedMax);
-    followerArmMotor.set(Constants.Shooter.armDownSpeedMax);
   }
   if (armMotor.getSelectedSensorPosition()/1000 <= Constants.Shooter.almostDownValue){
     armMotor.set(Constants.Shooter.armDownSpeedMax*0.15);
-    followerArmMotor.set(Constants.Shooter.armDownSpeedMax*0.15);
   } 
 }
 
 public void ArmHoldPosition(){
-  armMotor.stopMotor();
-  followerArmMotor.stopMotor();
+  armMotor.set(Constants.Shooter.armHoldSpeed);
 }
 
-public void HangWithArm(){
-  if (armAtRest.get() == false){ //if bottom limit switch is pressed
-    armMotor.stopMotor();
-    followerArmMotor.stopMotor();
-    }
-  if (armAtRest.get() == true){ //if bottom limit switch is not being pressed 
-    armMotor.set(Constants.Shooter.armHangSpeed);
-    followerArmMotor.set(Constants.Shooter.armHangSpeed);
-  }
-}
 
 public double GetArmEncoderPosition(){
   return armMotor.getSelectedSensorPosition()/1000;

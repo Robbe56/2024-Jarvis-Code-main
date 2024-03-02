@@ -51,9 +51,14 @@ public final class Constants
     
   }
 
+  public static final class Hang{
+    public static final int HangMotorPWMID = 1;
+    public static final double armHangSpeed = 0.9;
+    public static final double hangerUnwindSpeed = -0.5;
+  }
+
   public static final class Shooter{
     public static final int armMotorCANID = 23;
-    public static final int followerMotorPWMID = 1;
     public static final int feedMotorCANID = 26;
     public static final int leftShooterMotorID = 25;
     public static final int rightShooterMotorID = 24;
@@ -66,21 +71,21 @@ public final class Constants
     public static final double noteSensorThreshold = 3;
 
     //Arm Encoder Values
-    public static final int almostUpValue = 195;
-    public static final int almostDownValue = 25;
-    public static final int aimedAtSpeaker = 94; // was 104 to shoot from subwoofer, 130 to shoot from safe zone
-    public static final int aimedFromSafe = 125; //Shot from safe zone
-    public static final int aimedFarShot = 145; //far shot from auto mode
+    public static final int almostUpValue = 110;
+    public static final int almostDownValue = 10;
+    public static final int aimedAtSpeaker = 43; // was 104 to shoot from subwoofer, 130 to shoot from safe zone
+    public static final int aimedFromSafe = 48; //Shot from safe zone
+    public static final int aimedFarShot = 52; //far shot from auto mode
     
     public static final double ampFeedSpeed = 0.8;
     public static final double ampShooterSpeed = -0.6;
     public static final double waitTimeForScore = 1;
 
-    public static final double armUpSpeedMax = -0.8;
-    public static final double armDownSpeedMax = 0.65;
+    public static final double armUpSpeedMax = -0.7;
+    public static final double armHoldSpeed = -0.1;
+    public static final double armDownSpeedMax = 0.4;
     public static final double DownReductionFactor = 0.15; //15% of speed when going down
     public static final double UpReductionFactor = 0.50; //50% of speed when going up
-    public static final double armHangSpeed = 0.9;
     
     public static final double feedLowSpeed = -0.5;
     public static final double feedHighSpeed = -1;
@@ -95,7 +100,7 @@ public final class Constants
     
     //auto mode values
     public static final double ShooterSpinUpTime = 1.2;
-    public static final double NoteInAirTime = 1.5;
+    public static final double NoteInAirTime = 2;
     public static final double UnJamTime = 0.1 ;
     public static final double intakeTimer = 0;
     
