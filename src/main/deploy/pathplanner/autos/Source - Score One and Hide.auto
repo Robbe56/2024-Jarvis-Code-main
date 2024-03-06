@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.5996586030261917,
-      "y": 2.1016588187022522
+      "x": 0.7401886415755699,
+      "y": 4.414985377759629
     },
-    "rotation": 0.0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -15,6 +15,12 @@
           "type": "wait",
           "data": {
             "waitTime": 2.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Fire From Subwoofer"
           }
         },
         {

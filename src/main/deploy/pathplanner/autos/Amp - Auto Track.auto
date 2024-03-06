@@ -1,0 +1,67 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.72,
+      "y": 6.7
+    },
+    "rotation": 60.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Fire From Subwoofer"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp - Get 1st - AutoTrack"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Auto Target Note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp - Get Back After 1st"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Fire From Distance"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp - Get 2nd - AutoTrack"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Auto Target Note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Return Amp - Blue"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Blue Autos",
+  "choreoAuto": false
+}

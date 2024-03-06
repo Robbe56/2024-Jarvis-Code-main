@@ -15,7 +15,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.OperatorConstants; 
+import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.swervedrive.auto.TargetNoteCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import frc.robot.subsystems.ArmSubsystem;
@@ -72,6 +73,7 @@ public class RobotContainer
   private final UnwindHangerCommand m_unwind;
   private final MoveArmToSpeakerShot m_MoveArmToSpeakerShot;
   private final MoveArmToSafeZoneShot m_MoveArmSafeShot;
+  private final TargetNoteCommand m_findNote;
 
   private final SendableChooser<Command> autoChooser;
 
@@ -91,7 +93,8 @@ public class RobotContainer
     NamedCommands.registerCommand("Fire From Subwoofer", new FireFromSubwoofer(m_arm, m_shooter));
     NamedCommands.registerCommand("Fire From Distance", new FireFromDistance(m_arm, m_shooter, m_intake));
     NamedCommands.registerCommand("Run Intake", new AutoIntake(m_intake, m_shooter, m_arm));
-    
+    NamedCommands.registerCommand("Auto Target Note", new TargetNoteCommand(drivebase, m_intake, m_shooter, m_arm, driverXbox));
+
     m_joystickArmCommand = new JoystickArmCommand(m_arm, operatorController);  //control arm manually with joysticks
     m_RollerButtonCommand = new RollerButtonCommand(m_shooter, m_intake, m_arm, driverXbox, operatorController); //control all rollers with buttons
 
@@ -103,27 +106,15 @@ public class RobotContainer
     m_MoveArmSafeShot = new MoveArmToSafeZoneShot(m_arm, operatorController);
     m_hangCommand = new HangOnChainCommand(m_hang, m_arm, operatorController);
     m_unwind = new UnwindHangerCommand(m_hang, m_arm, operatorController);
+    m_findNote = new TargetNoteCommand(drivebase, m_intake, m_shooter, m_arm, driverXbox);
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
-
-    // Register Named Commands
-    //Named commands = commands other than driving around that still need to be executed in auto
-
-    /*m_fireFromSubwoofer = new FireFromSubwoofer(m_arm, m_shooter);
-    m_fireFromDistance = new FireFromDistance(m_arm, m_shooter);
-    m_autoIntake = new AutoIntake(m_intake, m_shooter, m_arm); 
-    
-
-    //PathPlanner Named Commands
-    NamedCommands.registerCommand("Fire From Subwoofer", new FireFromSubwoofer(m_arm, m_shooter));
-    NamedCommands.registerCommand("Fire From Distance", new FireFromDistance(m_arm, m_shooter));
-    NamedCommands.registerCommand("Run Intake", new AutoIntake(m_intake, m_shooter, m_arm));
    
-
+/*
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
-   */
+*/
     configureBindings();
 
     AbsoluteDriveAdv closedAbsoluteDriveAdv = new AbsoluteDriveAdv(drivebase,
@@ -182,6 +173,8 @@ public class RobotContainer
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
     new JoystickButton(driverXbox, 8).onTrue(new InstantCommand(drivebase::zeroGyro));
+    new JoystickButton(driverXbox, 2).onTrue(m_findNote);
+
     //new JoystickButton(driverXbox, 3).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
 
     //new JoystickButton(operatorController, 1).onTrue(m_autoAmpSequence);
