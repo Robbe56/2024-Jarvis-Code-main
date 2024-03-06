@@ -47,7 +47,7 @@ public class RollerButtonCommand extends Command {
       intake.IntakeSpitOut();
     }
 
-    if ((driveController.getLeftBumper() == true || driveController.getRightBumper() == true) 
+    if ((driveController.getRawAxis(2) > 0.5 || driveController.getRawAxis(3) > 0.5) 
     && 
     shooter.getNoteSensor() == true && arm.GetBottomLimitSwitch() == false){
       intake.intakeActive();
@@ -55,9 +55,9 @@ public class RollerButtonCommand extends Command {
     }
 
     if ((
-    driveController.getLeftBumper() == false 
+    driveController.getRawAxis(2) < 0.5
     && 
-    driveController.getRightBumper() == false 
+    driveController.getRawAxis(3) < 0.5
     &&
     driveController.getYButton() == false) 
     || 
@@ -91,8 +91,9 @@ public class RollerButtonCommand extends Command {
 
     }
     if (operatorController.getRightBumper() == false && operatorController.getRawButton(4) == false && 
-    (driveController.getLeftBumper() == false && driveController.getRightBumper() == false)){
+    (driveController.getRawAxis(2) < 0.5 && driveController.getRawAxis(3) < 0.5)){
       shooter.StopFeedRoller();
+  
     }
     if (operatorController.getRawButton(4) == true){
       shooter.FeedMotorsBackward();

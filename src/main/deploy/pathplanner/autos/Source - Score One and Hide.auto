@@ -2,30 +2,30 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 15.8,
-      "y": 4.43
+      "x": 0.5996586030261917,
+      "y": 2.1016588187022522
     },
-    "rotation": -120.0
+    "rotation": 0.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "Fire From Subwoofer"
+            "waitTime": 2.0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Source Hide - Red"
+            "pathName": "Source Hide Blue"
           }
         }
       ]
     }
   },
-  "folder": "Red Autos",
+  "folder": "Blue Autos",
   "choreoAuto": false
 }

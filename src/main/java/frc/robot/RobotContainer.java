@@ -205,8 +205,12 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    //return new PathPlannerAuto("1 Note Amp Side - Blue");
-    return autoChooser.getSelected();
+    //return new PathPlannerAuto("Center - Under Stage");
+    //return new PathPlannerAuto("Source - Get 2 Far Notes");
+    return new PathPlannerAuto("Source - Get Close Note - Get Far Note");
+    //return new PathPlannerAuto("Source - Score One and Hide");
+    //return new PathPlannerAuto("Amp - Get Close Note - Get Far Note");
+    //return autoChooser.getSelected();
   }
 
   public void setDriveMode()

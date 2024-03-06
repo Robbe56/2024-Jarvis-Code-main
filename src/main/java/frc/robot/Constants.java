@@ -53,7 +53,7 @@ public final class Constants
 
   public static final class Hang{
     public static final int HangMotorPWMID = 1;
-    public static final double armHangSpeed = 0.9;
+    public static final double armHangSpeed = 1;
     public static final double hangerUnwindSpeed = -0.5;
   }
 
@@ -73,7 +73,7 @@ public final class Constants
     //Arm Encoder Values
     public static final int almostUpValue = 110;
     public static final int almostDownValue = 10;
-    public static final int aimedAtSpeaker = 43; // was 104 to shoot from subwoofer, 130 to shoot from safe zone
+    public static final double aimedAtSpeaker = 53; // was 104 to shoot from subwoofer, 130 to shoot from safe zone
     public static final int aimedFromSafe = 48; //Shot from safe zone
     public static final int aimedFarShot = 52; //far shot from auto mode
     
@@ -99,7 +99,7 @@ public final class Constants
     
     
     //auto mode values
-    public static final double ShooterSpinUpTime = 1.2;
+    public static final double ShooterSpinUpTime = 1.3;
     public static final double NoteInAirTime = 2;
     public static final double UnJamTime = 0.1 ;
     public static final double intakeTimer = 0;

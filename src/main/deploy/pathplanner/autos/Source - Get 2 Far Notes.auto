@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 15.1,
-      "y": 5.55
+      "x": 0.69,
+      "y": 4.39
     },
-    "rotation": 180.0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -18,13 +18,13 @@
           }
         },
         {
-          "type": "race",
+          "type": "deadline",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Center Get Close - Red"
+                  "pathName": "Start Source Side - Blue"
                 }
               },
               {
@@ -39,7 +39,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Center Get Back - Red"
+            "pathName": "Return Source - Blue"
           }
         },
         {
@@ -55,7 +55,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Center Get Far - Red"
+                  "pathName": "Get 3rd Source - Blue"
                 }
               },
               {
@@ -70,18 +70,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Center Return - Red"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Fire From Distance"
+            "pathName": "Source - Last Return"
           }
         }
       ]
     }
   },
-  "folder": "Red Autos",
+  "folder": "Blue Autos",
   "choreoAuto": false
 }
