@@ -5,7 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -31,7 +30,6 @@ import frc.robot.commands.HangOnChainCommand;
 import frc.robot.commands.JoystickArmCommand;
 import frc.robot.commands.MoveArmToSafeZoneShot;
 import frc.robot.commands.MoveArmToSpeakerShot;
-import frc.robot.commands.ResetGyro;
 import frc.robot.commands.RollerButtonCommand;
 import frc.robot.commands.UnwindHangerCommand;
 

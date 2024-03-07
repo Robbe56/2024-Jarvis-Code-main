@@ -63,7 +63,7 @@ public class TargetNoteCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !driverController.getRawButton(3); //go back to regular driving after letting go of button #3
+    return !driverController.getRawButton(2); //go back to regular driving after letting go of button #2
 
   }
 }
