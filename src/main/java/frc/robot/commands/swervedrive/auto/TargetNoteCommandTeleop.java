@@ -14,7 +14,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 
-public class TargetNoteCommand extends Command {
+public class TargetNoteCommandTeleop extends Command {
   /** Creates a new TargetNoteCommand. */
   private final SwerveSubsystem swerveDrive;
   private final IntakeSubsystem intake;
@@ -24,7 +24,7 @@ public class TargetNoteCommand extends Command {
   private final Timer timer;
   private final ChassisSpeeds autoDriveSpeeds;
 
-  public TargetNoteCommand(SwerveSubsystem m_swerveDrive, IntakeSubsystem m_intake, ShooterSubsystem m_shooter, ArmSubsystem m_arm, XboxController m_driverController) {
+  public TargetNoteCommandTeleop(SwerveSubsystem m_swerveDrive, IntakeSubsystem m_intake, ShooterSubsystem m_shooter, ArmSubsystem m_arm, XboxController m_driverController) {
     // Use addRequirements() here to declare subsystem dependencies.
     swerveDrive = m_swerveDrive;
     intake = m_intake;
@@ -68,7 +68,7 @@ public class TargetNoteCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.get() > Constants.Auton.TargetNoteTime; //stop auto driving after this much time
+    return !driverController.getRawButton(2); //go back to regular driving after letting go of button #2
 
   }
 }

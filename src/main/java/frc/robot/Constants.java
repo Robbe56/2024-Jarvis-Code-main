@@ -31,6 +31,7 @@ public final class Constants
     public static final PIDFConfig angleAutoPID   = new PIDFConfig(0.04, 0, 0.01);
 
     public static final double MAX_ACCELERATION = .1;
+    public static final double TargetNoteTime = 1.5;
   }
 
   public static final class Drivebase
@@ -38,7 +39,7 @@ public final class Constants
 
     // Hold time on motor brakes when disabled
     public static final double WHEEL_LOCK_TIME = 10; // seconds
-    public static final double autoForwardSpeed = 1; //creep forward speed when auto searching for note in m/s
+    public static final double autoForwardSpeed = 1.5; //creep forward speed when auto searching for note in m/s
     public static final double NoteKP = 0.085;
     public static final double SpeakerTrackKP = 0.035;
   }

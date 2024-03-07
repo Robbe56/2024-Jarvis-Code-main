@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.swervedrive.auto.TargetNoteCommand;
+import frc.robot.commands.swervedrive.auto.TargetNoteCommandTeleop;
 import frc.robot.commands.swervedrive.auto.TurnToSpeaker;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
@@ -73,6 +74,7 @@ public class RobotContainer
   private final MoveArmToSpeakerShot m_MoveArmToSpeakerShot;
   private final MoveArmToSafeZoneShot m_MoveArmSafeShot;
   private final TargetNoteCommand m_findNote;
+  private final TargetNoteCommandTeleop m_findNoteTeleop;
   private final TurnToSpeaker m_turnToSpeaker;
 
   private final SendableChooser<Command> autoChooser;
@@ -107,6 +109,7 @@ public class RobotContainer
     m_hangCommand = new HangOnChainCommand(m_hang, m_arm, operatorController);
     m_unwind = new UnwindHangerCommand(m_hang, m_arm, operatorController);
     m_findNote = new TargetNoteCommand(drivebase, m_intake, m_shooter, m_arm, driverXbox);
+    m_findNoteTeleop = new TargetNoteCommandTeleop(drivebase, m_intake, m_shooter, m_arm, driverXbox);
     m_turnToSpeaker = new TurnToSpeaker(drivebase, driverXbox);
 
     autoChooser = AutoBuilder.buildAutoChooser();
@@ -174,7 +177,7 @@ public class RobotContainer
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
     new JoystickButton(driverXbox, 8).onTrue(new InstantCommand(drivebase::zeroGyro));
-    new JoystickButton(driverXbox, 2).onTrue(m_findNote);
+    new JoystickButton(driverXbox, 2).onTrue(m_findNoteTeleop);
     //new JoystickButton(driverXbox, 3).onTrue(m_turnToSpeaker);
 
     //new JoystickButton(driverXbox, 3).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
