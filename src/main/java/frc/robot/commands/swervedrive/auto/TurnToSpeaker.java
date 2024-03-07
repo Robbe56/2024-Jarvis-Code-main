@@ -4,38 +4,31 @@
 
 package frc.robot.commands.swervedrive.auto;
 
+
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 
-public class TargetNoteCommand extends Command {
+public class TurnToSpeaker extends Command {
   /** Creates a new TargetNoteCommand. */
   private final SwerveSubsystem swerveDrive;
-  private final IntakeSubsystem intake;
-  private final ShooterSubsystem shooter;
-  private final ArmSubsystem arm;
   private final XboxController driverController;
   private final Timer timer;
-  private final ChassisSpeeds autoDriveSpeeds;
+  private final ChassisSpeeds autoTrackSpeakerSpeeds;
+  private double turnSpeed;
 
-  public TargetNoteCommand(SwerveSubsystem m_swerveDrive, IntakeSubsystem m_intake, ShooterSubsystem m_shooter, ArmSubsystem m_arm, XboxController m_driverController) {
+  public TurnToSpeaker(SwerveSubsystem m_swerveDrive, XboxController m_driverController) {
     // Use addRequirements() here to declare subsystem dependencies.
     swerveDrive = m_swerveDrive;
-    intake = m_intake;
     driverController = m_driverController;
-    shooter = m_shooter;
-    arm = m_arm;
     timer = new Timer();
 
-    autoDriveSpeeds = new ChassisSpeeds(0, 0, 0);
+    autoTrackSpeakerSpeeds = new ChassisSpeeds(0,0, turnSpeed);
 
-    addRequirements(swerveDrive, intake, shooter, arm);
+    addRequirements(swerveDrive);
   }
 
   // Called when the command is initially scheduled.
@@ -47,13 +40,9 @@ public class TargetNoteCommand extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() { 
-    autoDriveSpeeds.vxMetersPerSecond = Constants.Drivebase.autoForwardSpeed;
-    autoDriveSpeeds.vyMetersPerSecond = Constants.Drivebase.NoteKP*swerveDrive.TrackNote(); //multiply Limelight value by P factor
-    swerveDrive.drive(autoDriveSpeeds);
-    //intake.intakeActive();
-    //shooter.FeedMotorFast();
-    //arm.ArmDownCommand();
+  public void execute() {
+    turnSpeed = Constants.Drivebase.SpeakerTrackKP*swerveDrive.TrackSpeaker(); //multiply Limelight value by P factor
+    swerveDrive.drive(autoTrackSpeakerSpeeds);
   }
 
   // Called once the command ends or is interrupted.
@@ -63,7 +52,7 @@ public class TargetNoteCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !driverController.getRawButton(3); //go back to regular driving after letting go of button #3
+    return timer.get() > Constants.Shooter.TrackNoteTime || !driverController.getRawButton(2); //go back to regular driving after 5 seconds or when you let go of button #2
 
   }
 }

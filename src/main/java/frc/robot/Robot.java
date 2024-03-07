@@ -55,7 +55,7 @@ public class Robot extends TimedRobot
 
     //Start the Camera Server
 
-    CameraServer.startAutomaticCapture("Front Camera",0);
+    //CameraServer.startAutomaticCapture("Front Camera",0);
   }
 
   /**

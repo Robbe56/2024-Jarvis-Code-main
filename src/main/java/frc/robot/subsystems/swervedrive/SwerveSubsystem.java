@@ -54,10 +54,15 @@ public class SwerveSubsystem extends SubsystemBase
    */
 
   //Limelight
-  NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");;
+  NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   NetworkTableEntry tx = table.getEntry("tx");
   NetworkTableEntry ty = table.getEntry("ty");
   NetworkTableEntry ta = table.getEntry("ta");
+
+  NetworkTable secondTable = NetworkTableInstance.getDefault().getTable("shooter limelight");
+  NetworkTableEntry shootertx = secondTable.getEntry("tx");
+  NetworkTableEntry shooterty = secondTable.getEntry("ty");
+  NetworkTableEntry shooterta = secondTable.getEntry("ta");
 
 
   public SwerveSubsystem(File directory)
@@ -276,11 +281,16 @@ public class SwerveSubsystem extends SubsystemBase
 
   }
 
+  public double TrackSpeaker(){
+    return shootertx.getDouble(0.0);
+  }
+
   @Override
   public void periodic()
   {
   //SmartDashboard.putData("Robot Roll Value", swerveDrive.getRoll());
   SmartDashboard.putNumber("Limelight Note Target", tx.getDouble(0.0));
+  SmartDashboard.putNumber("Limelight Shooter Target", shootertx.getDouble(0.0));
   }
 
   @Override
