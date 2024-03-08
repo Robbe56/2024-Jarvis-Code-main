@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.72,
-      "y": 6.7
+      "x": 0.83,
+      "y": 6.64
     },
     "rotation": 60.0
   },
@@ -57,6 +57,12 @@
           "type": "path",
           "data": {
             "pathName": "Return Amp - Blue"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Fire From Distance"
           }
         }
       ]

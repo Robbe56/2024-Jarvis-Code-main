@@ -94,7 +94,7 @@ public void ArmUpCommand(){
     armMotor.stopMotor();
   }
   if (armMotor.getSelectedSensorPosition()/1000 < Constants.Shooter.almostUpValue){ 
-    armMotor.set(Constants.Shooter.armUpSpeedMax);
+    armMotor.set(Constants.Shooter.armUpAutoSpeed);
   }
   /*if (armMotor.getSelectedSensorPosition()/1000 >= Constants.Shooter.almostUpValue){
     armMotor.set(Constants.Shooter.armUpSpeedMax*0.2);

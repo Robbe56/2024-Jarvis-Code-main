@@ -40,7 +40,7 @@ public final class Constants
     // Hold time on motor brakes when disabled
     public static final double WHEEL_LOCK_TIME = 10; // seconds
     public static final double autoForwardSpeed = 1.5; //creep forward speed when auto searching for note in m/s
-    public static final double NoteKP = 0.085;
+    public static final double NoteKP = 0.045;
     public static final double SpeakerTrackKP = 0.035;
   }
 
@@ -77,8 +77,8 @@ public final class Constants
     //Arm Encoder Values
     public static final int almostUpValue = 110;
     public static final int almostDownValue = 10;
-    public static final double aimedAtSpeaker = 53; // was 104 to shoot from subwoofer, 130 to shoot from safe zone
-    public static final int aimedFromSafe = 48; //Shot from safe zone
+    public static final double aimedAtSpeaker = 58; //From center, 58 works
+    public static final int aimedFromSafe = 65; //Shot from safe zone
     public static final int aimedFarShot = 52; //far shot from auto mode
     
     public static final double ampFeedSpeed = 0.8;
@@ -86,7 +86,8 @@ public final class Constants
     public static final double waitTimeForScore = 1;
 
     public static final double armUpSpeedMax = -0.7;
-    public static final double armHoldSpeed = -0.1;
+    public static final double armUpAutoSpeed = -0.4;
+    public static final double armHoldSpeed = -0.15;
     public static final double armDownSpeedMax = 0.4;
     public static final double DownReductionFactor = 0.15; //15% of speed when going down
     public static final double UpReductionFactor = 0.50; //50% of speed when going up
@@ -94,7 +95,7 @@ public final class Constants
     public static final double feedLowSpeed = -0.5;
     public static final double feedHighSpeed = -1;
     public static final double shootLowSpeed = -0.4;
-    public static final double shootHighSpeed = -0.7;
+    public static final double shootHighSpeed = -0.9;
     public static final double shootAutoDistance = -.85;
 
     public static final double TimeToRunShooterIntoAmp = 1; //run motors for this many seconds
@@ -103,11 +104,11 @@ public final class Constants
     
     
     //auto mode values
-    public static final double ShooterSpinUpTime = 1;
-    public static final double NoteInAirTime = 1.5;
+    public static final double ShooterSpinUpTime = 1.3;
+    public static final double NoteInAirTime = 1.6;
     public static final double UnJamTime = 0.1 ;
     public static final double intakeTimer = 0;
-    public static final double TrackNoteTime = 2;
+    public static final double TrackNoteTime = .5;
     
     
     
