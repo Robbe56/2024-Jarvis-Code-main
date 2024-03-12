@@ -61,6 +61,9 @@ public final class Constants
     public static final int HangMotorPWMID = 1;
     public static final double armHangSpeed = 1;
     public static final double hangerUnwindSpeed = -0.5;
+    public static final int leftHangMotorPWMID = 2;
+    public static final int rightHangMotorPWMID = 3;
+    public static final double hookHangSpeed = -1;
   }
 
   public static final class Shooter{
