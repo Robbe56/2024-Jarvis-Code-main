@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.swervedrive.auto.TargetNoteCommand;
 import frc.robot.commands.swervedrive.auto.TargetNoteCommandTeleop;
+import frc.robot.commands.swervedrive.auto.TargetNoteCrossFieldCommand;
 import frc.robot.commands.swervedrive.auto.TurnToSpeaker;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
@@ -32,6 +33,7 @@ import frc.robot.commands.JoystickArmCommand;
 import frc.robot.commands.MoveArmToSafeZoneShot;
 import frc.robot.commands.MoveArmToSpeakerShot;
 import frc.robot.commands.RollerButtonCommand;
+import frc.robot.commands.ShootAcrossFieldCommand;
 import frc.robot.commands.UnwindHangerCommand;
 
 import java.io.File;
@@ -76,6 +78,8 @@ public class RobotContainer
   private final TargetNoteCommand m_findNote;
   private final TargetNoteCommandTeleop m_findNoteTeleop;
   private final TurnToSpeaker m_turnToSpeaker;
+  private final ShootAcrossFieldCommand m_acrossFieldShot;
+  private final TargetNoteCrossFieldCommand m_targetMidline;
 
   private final SendableChooser<Command> autoChooser;
 
@@ -95,7 +99,9 @@ public class RobotContainer
     NamedCommands.registerCommand("Fire From Subwoofer", new FireFromSubwoofer(m_arm, m_shooter));
     NamedCommands.registerCommand("Fire From Distance", new FireFromDistance(m_arm, m_shooter, m_intake));
     NamedCommands.registerCommand("Run Intake", new AutoIntake(m_intake, m_shooter, m_arm));
-    NamedCommands.registerCommand("Auto Target Note", new TargetNoteCommand(drivebase, m_intake, m_shooter, m_arm, driverXbox));
+    NamedCommands.registerCommand("Auto Target Note", new TargetNoteCommand(drivebase, m_intake, m_shooter, m_arm));
+    NamedCommands.registerCommand("Shoot Across Field", new ShootAcrossFieldCommand(m_arm, m_shooter, m_intake));
+    NamedCommands.registerCommand("Target Note At Midline", new TargetNoteCrossFieldCommand(drivebase, m_intake, m_shooter, m_arm));
 
     m_joystickArmCommand = new JoystickArmCommand(m_arm, operatorController);  //control arm manually with joysticks
     m_RollerButtonCommand = new RollerButtonCommand(m_shooter, m_intake, m_arm, driverXbox, operatorController); //control all rollers with buttons
@@ -108,9 +114,11 @@ public class RobotContainer
     m_MoveArmSafeShot = new MoveArmToSafeZoneShot(m_arm, operatorController);
     m_hangCommand = new HangOnChainCommand(m_hang, m_arm, operatorController);
     m_unwind = new UnwindHangerCommand(m_hang, m_arm, operatorController);
-    m_findNote = new TargetNoteCommand(drivebase, m_intake, m_shooter, m_arm, driverXbox);
+    m_findNote = new TargetNoteCommand(drivebase, m_intake, m_shooter, m_arm);
     m_findNoteTeleop = new TargetNoteCommandTeleop(drivebase, m_intake, m_shooter, m_arm, driverXbox);
     m_turnToSpeaker = new TurnToSpeaker(drivebase, driverXbox);
+    m_acrossFieldShot = new ShootAcrossFieldCommand(m_arm, m_shooter, m_intake);
+    m_targetMidline = new TargetNoteCrossFieldCommand(drivebase, m_intake, m_shooter, m_arm);
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -201,14 +209,20 @@ public class RobotContainer
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand()
-  {
-    // An example command will be run in autonomous
+  {    
+    //AMP SIDE AUTOMODES
+    //return new PathPlannerAuto("Amp - Auto Track");
+
+    //CENTER AUTOMODES
     //return new PathPlannerAuto("Center - Under Stage");
+    return new PathPlannerAuto("Center - 4 Notes");
+   
+    //CENTER AUTOMODES
+    //return new PathPlannerAuto("Source - Midline");
     //return new PathPlannerAuto("Source - Get 2 Far Notes");
     //return new PathPlannerAuto("Source - Get Close Note - Get Far Note");
     //return new PathPlannerAuto("Source - Score One and Hide");
-    //return new PathPlannerAuto("Amp - Get Close Note - Get Far Note");
-    return new PathPlannerAuto("Amp - Auto Track");
+
     //return autoChooser.getSelected();
   }
 

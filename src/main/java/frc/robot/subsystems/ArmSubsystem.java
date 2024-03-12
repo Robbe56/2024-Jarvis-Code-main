@@ -103,6 +103,19 @@ public void ArmUpCommand(){
   */ 
   
  }
+ public void ArmUpFastCommand(){
+  if (armAtAmp.get() == false){ //if pressing top limit switch
+    armMotor.stopMotor();
+
+  } else armMotor.set(Constants.Shooter.armUpSpeedMax);
+
+  /*if (armMotor.getSelectedSensorPosition()/1000 >= Constants.Shooter.almostUpValue){
+    armMotor.set(Constants.Shooter.armUpSpeedMax*0.2);
+    followerArmMotor.set(Constants.Shooter.armUpSpeedMax*0.2);
+  } 
+  */ 
+  
+ }
 
  public void ArmDownCommand(){
   if (armAtRest.get() == false){ //if pressing bottom limit switch
@@ -115,6 +128,7 @@ public void ArmUpCommand(){
     armMotor.set(Constants.Shooter.armDownSpeedMax*0.15);
   } 
 }
+
 
 public void ArmHoldPosition(){
   armMotor.set(Constants.Shooter.armHoldSpeed);

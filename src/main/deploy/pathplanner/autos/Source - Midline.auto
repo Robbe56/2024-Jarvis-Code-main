@@ -1,0 +1,99 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7636103146671328,
+      "y": 4.461828723942754
+    },
+    "rotation": -60.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Fire From Subwoofer"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Source - Drive to Midline"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Auto Target Note"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot Across Field"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Rotate 1st Shot"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Get 2nd Midline"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Target Note At Midline"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot Across Field"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Rotate 2nd Shot"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Get 3rd Midline"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Target Note At Midline"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Blue Autos",
+  "choreoAuto": false
+}

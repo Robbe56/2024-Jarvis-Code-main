@@ -20,15 +20,13 @@ public class TargetNoteCommand extends Command {
   private final IntakeSubsystem intake;
   private final ShooterSubsystem shooter;
   private final ArmSubsystem arm;
-  private final XboxController driverController;
   private final Timer timer;
   private final ChassisSpeeds autoDriveSpeeds;
 
-  public TargetNoteCommand(SwerveSubsystem m_swerveDrive, IntakeSubsystem m_intake, ShooterSubsystem m_shooter, ArmSubsystem m_arm, XboxController m_driverController) {
+  public TargetNoteCommand(SwerveSubsystem m_swerveDrive, IntakeSubsystem m_intake, ShooterSubsystem m_shooter, ArmSubsystem m_arm) {
     // Use addRequirements() here to declare subsystem dependencies.
     swerveDrive = m_swerveDrive;
     intake = m_intake;
-    driverController = m_driverController;
     shooter = m_shooter;
     arm = m_arm;
     timer = new Timer();

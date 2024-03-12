@@ -91,8 +91,8 @@ leftShooterMotor.configFactoryDefault();
    }
    
    public void ShooterMotorsBackward(){
-    rightShooterMotor.set(-Constants.Shooter.shootHighSpeed);
-    leftShooterMotor.set(-Constants.Shooter.shootHighSpeed);
+    rightShooterMotor.set(-Constants.Shooter.suckInSpeed);
+    leftShooterMotor.set(-Constants.Shooter.suckInSpeed);
    }
 
    public void ShooterIntoAmpSpeed(){

@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.68,
-      "y": 4.34
+      "x": 1.36086297850199,
+      "y": 5.539225686154654
     },
-    "rotation": -60.0
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -20,7 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Source Get Close - Blue"
+            "pathName": "Start Center - Blue"
           }
         },
         {
@@ -32,7 +32,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Source Get Back - Blue"
+            "pathName": "Center Get Back - Blue"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Fire From Distance"
           }
         },
         {
@@ -44,7 +50,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Start Source Side - Blue"
+            "pathName": "Center - Get Mid Note"
           }
         },
         {
@@ -56,7 +62,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Return Source - Blue"
+            "pathName": "Center - Get Back after mid"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Fire From Distance"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Center - Get Amp Note"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Auto Target Note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Center - Get Back after amp"
           }
         },
         {

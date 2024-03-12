@@ -18,22 +18,15 @@
           }
         },
         {
-          "type": "deadline",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Start Source Side - Blue"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Run Intake"
-                }
-              }
-            ]
+            "pathName": "Start Source Side - Blue"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Auto Target Note"
           }
         },
         {
@@ -49,28 +42,27 @@
           }
         },
         {
-          "type": "race",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Get 3rd Source - Blue"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Run Intake"
-                }
-              }
-            ]
+            "pathName": "Get 3rd Source - Blue"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Auto Target Note"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "Source - Last Return"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Fire From Distance"
           }
         }
       ]
