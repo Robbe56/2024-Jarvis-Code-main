@@ -291,6 +291,7 @@ public class SwerveSubsystem extends SubsystemBase
   //SmartDashboard.putData("Robot Roll Value", swerveDrive.getRoll());
   SmartDashboard.putNumber("Limelight Note Target", tx.getDouble(0.0));
   SmartDashboard.putNumber("Limelight Shooter Target", shootertx.getDouble(0.0));
+  SmartDashboard.putNumber("Robot Heading Degrees", getHeading().getDegrees());
   }
 
   @Override

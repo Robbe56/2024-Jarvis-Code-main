@@ -37,15 +37,28 @@
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "Center Get Back - Blue"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Center Get Back - Blue"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Prepare To Fire"
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Fire From Distance"
+            "name": "Fire Prepared Shot"
           }
         },
         {
@@ -61,21 +74,34 @@
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "Center - Get Back after mid"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Center - Get Back after mid"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Prepare To Fire"
+                }
+              }
+            ]
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Fire From Distance"
+            "name": "Fire Prepared Shot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Center - Get Amp Note"
+            "pathName": "Center Prototype - Get Amp Note"
           }
         },
         {
@@ -85,9 +111,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "Center - Get Back after amp"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Center Prototype - Get Back after amp"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Prepare To Fire"
+                }
+              }
+            ]
           }
         },
         {

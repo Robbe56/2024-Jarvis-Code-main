@@ -46,7 +46,7 @@ public class TargetNoteCommand extends Command {
   @Override
   public void execute() { 
     autoDriveSpeeds.vxMetersPerSecond = Constants.Drivebase.autoForwardSpeed;
-    autoDriveSpeeds.vyMetersPerSecond = Constants.Drivebase.NoteKP*swerveDrive.TrackNote(); //multiply Limelight value by P factor
+    autoDriveSpeeds.vyMetersPerSecond = -Constants.Drivebase.NoteKP*swerveDrive.TrackNote(); //multiply Limelight value by P factor
     swerveDrive.drive(autoDriveSpeeds);
     intake.intakeActive();
     shooter.FeedMotorFast();

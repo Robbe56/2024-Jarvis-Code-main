@@ -31,8 +31,12 @@ public final class Constants
     public static final PIDFConfig angleAutoPID   = new PIDFConfig(0.04, 0, 0.01);
 
     public static final double MAX_ACCELERATION = .1;
-    public static final double TargetNoteTime = 1;
+    public static final double TargetNoteTime = 1.5;
     public static final double AcrossFieldNoteTime = 1.5;
+    public static final double midlineSpinUpTime = 0.5;
+    public static final double TurnTarget = 80; //angle to turn to point at next note at midline
+    public static final double LookAcrossFieldAngle = 10; //angle to turn to shooter back at our side of the field
+    public static final double midlineTurnSpeed = 2;
   }
 
   public static final class Drivebase
@@ -41,7 +45,7 @@ public final class Constants
     // Hold time on motor brakes when disabled
     public static final double WHEEL_LOCK_TIME = 10; // seconds
     public static final double autoForwardSpeed = 0.75; //creep forward speed when auto searching for note in m/s
-    public static final double NoteKP = 0.045;
+    public static final double NoteKP = 0.035;
     public static final double SpeakerTrackKP = 0.035;
     public static final double TeleopAutoForwardSpeed = 1.5;
   }
@@ -83,7 +87,7 @@ public final class Constants
     public static final int almostUpValue = 110;
     public static final int almostDownValue = 10;
     public static final double aimedAtSpeaker = 55; //From center, 55 works
-    public static final int aimedFromSafe = 64; //Shoot acroos field
+    public static final int aimedFromSafe = 82; //90 to Shoot across field
     public static final int aimedFarShot = 52; //far shot from auto mode
     public static final int aimedAcrossField = 90; //arm angle to shoot across field
     
@@ -92,8 +96,8 @@ public final class Constants
     public static final double waitTimeForScore = 1;
 
     public static final double armUpSpeedMax = -0.8;
-    public static final double armUpAutoSpeed = -0.4;
-    public static final double armHoldSpeed = -0.15;
+    public static final double armUpAutoSpeed = -0.5;
+    public static final double armHoldSpeed = -0.18;
     public static final double armDownSpeedMax = 0.4;
     public static final double DownReductionFactor = 0.15; //15% of speed when going down
     public static final double UpReductionFactor = 0.50; //50% of speed when going up
@@ -101,9 +105,9 @@ public final class Constants
     public static final double feedLowSpeed = -0.5;
     public static final double feedHighSpeed = -1;
     public static final double shootLowSpeed = -0.4;
-    public static final double shootHighSpeed = -0.9;
+    public static final double shootHighSpeed = -.88; //speed when operator holds down right bumper
     public static final double suckInSpeed = -0.4;
-    public static final double shootAutoDistance = -.85;
+    public static final double shootAutoDistance = -.5;
 
     public static final double TimeToRunShooterIntoAmp = 1; //run motors for this many seconds
     public static final double feedBackward = .6;
@@ -111,8 +115,9 @@ public final class Constants
     
     
     //auto mode values
-    public static final double ShooterSpinUpTime = 1.3;
-    public static final double AcrossFieldSpinUpTime = 0.5;
+    public static final double ShooterSpinUpTime = 1;
+    public static final double PreparedShotDelay = 1;
+    public static final double AcrossFieldSpinUpTime = 1;
     public static final double NoteInAirTime = 1.6;
     public static final double NoteInAirAcrossFieldTime = .75;
     public static final double UnJamTime = 0.1 ;

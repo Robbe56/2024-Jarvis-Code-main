@@ -11,7 +11,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ShootAcrossFieldCommand extends Command {
+public class FirePreparedShot extends Command {
   /** Creates a new FireFromSubwoofer. */
   private final ArmSubsystem arm;
   private final ShooterSubsystem shooter;
@@ -19,10 +19,10 @@ public class ShootAcrossFieldCommand extends Command {
   private final Timer timer;
 
   
-  public ShootAcrossFieldCommand(ArmSubsystem m_arm, ShooterSubsystem m_shooter, IntakeSubsystem m_intake) {
+  public FirePreparedShot(ArmSubsystem m_arm, ShooterSubsystem m_shooter, IntakeSubsystem m_intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     
-    //Use to fire note across the field
+    //NOT FROM DISTANCE, FROM SUBWOOFER BUT WITH EXTRA STUFF TO MAKE IT WORK WHEN WE PICK UP FROM THE FLOOR
     arm = m_arm;
     shooter = m_shooter;
     intake = m_intake;
@@ -36,44 +36,51 @@ public class ShootAcrossFieldCommand extends Command {
   public void initialize() {
     timer.reset();
     timer.start();
-    arm.ResetArmEncoder();
+    //arm.ResetArmEncoder();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    if (timer.get() < Constants.Shooter.intakeTimer){
-      arm.StopArm();
-      intake.intakeActive();
-      shooter.StopFeedRoller();
-      shooter.StopShooter();
+    // if (timer.get() < Constants.Shooter.intakeTimer){
+    //   arm.StopArm();
+    //   intake.intakeActive();
+    //   shooter.StopFeedRoller();
+    //   shooter.StopShooter();
 
-    } 
+    // } 
 
   
     
     // arm contol
-    if (timer.get() < Constants.Shooter.AcrossFieldSpinUpTime){
-      if (arm.GetArmEncoderPosition() < Constants.Shooter.aimedAcrossField){
-        arm.ArmUpFastCommand();
-    }
-      else {arm.ArmHoldPosition();}
+    // if (timer.get() < (Constants.Shooter.ShooterSpinUpTime + 0.1)){
+    //   if (arm.GetArmEncoderPosition() < Constants.Shooter.aimedAtSpeaker){
+    //     arm.ArmUpCommand();
+    // }
+    //   else {arm.ArmHoldPosition();}
 
-  } else arm.ArmDownCommand();
+  //}  else arm.ArmDownCommand();
     
     //shooter control
-    if (timer.get() < Constants.Shooter.UnJamTime){
-      shooter.ShooterMotorsBackward();;
-      shooter.FeedMotorsBackward();
-    }
+    // if (timer.get() < Constants.Shooter.UnJamTime){
+    //   shooter.ShooterMotorsBackward();;
+    //   shooter.FeedMotorsBackward();
+    // }
 
-    if (timer.get() > Constants.Shooter.UnJamTime && timer.get() < Constants.Shooter.AcrossFieldSpinUpTime){
-      shooter.ShooterIntoSpeakerSpeed();
-      shooter.StopFeedRoller();
+    // if (timer.get() > Constants.Shooter.UnJamTime){
+    //   shooter.ShooterIntoSpeakerSpeed();
+    //   shooter.StopFeedRoller();
+    // }
+    if (arm.GetArmEncoderPosition() < Constants.Shooter.aimedAtSpeaker){
+        arm.ArmUpCommand();
     }
-
-    if (timer.get() > Constants.Shooter.AcrossFieldSpinUpTime) {
+    else {arm.ArmHoldPosition();}
+    if (timer.get() < Constants.Shooter.PreparedShotDelay){
+        shooter.ShooterIntoSpeakerSpeed();
+        shooter.StopFeedRoller();
+    }
+    else {
       shooter.ShooterIntoSpeakerSpeed();
       shooter.FeedMotorFast();
     }
@@ -92,7 +99,7 @@ public class ShootAcrossFieldCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return ((timer.get() > Constants.Shooter.AcrossFieldSpinUpTime) && !arm.GetBottomLimitSwitch()); //shots have been fired and arm is back down
+    return ((timer.get() > Constants.Shooter.ShooterSpinUpTime) && !arm.GetBottomLimitSwitch()); //shots have been fired and arm is back down
   }
 }
 

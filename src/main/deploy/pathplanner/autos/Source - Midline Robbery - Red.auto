@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.36086297850199,
-      "y": 5.539225686154654
+      "x": 0.7636103146671328,
+      "y": 4.461828723942754
     },
-    "rotation": 0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -18,40 +18,9 @@
           }
         },
         {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Start Center - Blue"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Run Intake"
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Center Get Back - Blue"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Fire From Distance"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Center - Get Mid Note"
+            "pathName": "Source - Drive to Midline"
           }
         },
         {
@@ -61,21 +30,15 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Center - Get Back after mid"
+            "name": "Fire From Midline"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Fire From Distance"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Center - Get Amp Note"
+            "name": "Midline Turn Command - Red"
           }
         },
         {
@@ -85,15 +48,33 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Center - Get Back after amp"
+            "name": "Midline Aim At Wall"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Fire From Distance"
+            "name": "Fire From Midline"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Midline Turn Command - Red"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Auto Target Note"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Midline Aim At Wall - Red"
           }
         }
       ]

@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.swervedrive.auto;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -11,7 +11,7 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ShootAcrossFieldCommand extends Command {
+public class FireFromMidline extends Command {
   /** Creates a new FireFromSubwoofer. */
   private final ArmSubsystem arm;
   private final ShooterSubsystem shooter;
@@ -19,10 +19,10 @@ public class ShootAcrossFieldCommand extends Command {
   private final Timer timer;
 
   
-  public ShootAcrossFieldCommand(ArmSubsystem m_arm, ShooterSubsystem m_shooter, IntakeSubsystem m_intake) {
+  public FireFromMidline(ArmSubsystem m_arm, ShooterSubsystem m_shooter, IntakeSubsystem m_intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     
-    //Use to fire note across the field
+    //Shooting from the midline back across the field
     arm = m_arm;
     shooter = m_shooter;
     intake = m_intake;
@@ -54,9 +54,9 @@ public class ShootAcrossFieldCommand extends Command {
   
     
     // arm contol
-    if (timer.get() < Constants.Shooter.AcrossFieldSpinUpTime){
-      if (arm.GetArmEncoderPosition() < Constants.Shooter.aimedAcrossField){
-        arm.ArmUpFastCommand();
+    if (timer.get() < (Constants.Auton.midlineSpinUpTime)){
+      if (arm.GetArmEncoderPosition() < Constants.Shooter.aimedAtSpeaker){
+        arm.ArmUpCommand();
     }
       else {arm.ArmHoldPosition();}
 
@@ -68,13 +68,13 @@ public class ShootAcrossFieldCommand extends Command {
       shooter.FeedMotorsBackward();
     }
 
-    if (timer.get() > Constants.Shooter.UnJamTime && timer.get() < Constants.Shooter.AcrossFieldSpinUpTime){
-      shooter.ShooterIntoSpeakerSpeed();
+    if (timer.get() > Constants.Shooter.UnJamTime && timer.get() < Constants.Auton.midlineSpinUpTime ){
+      shooter.ShooterAutoFarSpeed();
       shooter.StopFeedRoller();
     }
 
-    if (timer.get() > Constants.Shooter.AcrossFieldSpinUpTime) {
-      shooter.ShooterIntoSpeakerSpeed();
+    if (timer.get() > Constants.Auton.midlineSpinUpTime ) {
+      shooter.ShooterAutoFarSpeed();
       shooter.FeedMotorFast();
     }
   }
@@ -92,7 +92,7 @@ public class ShootAcrossFieldCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return ((timer.get() > Constants.Shooter.AcrossFieldSpinUpTime) && !arm.GetBottomLimitSwitch()); //shots have been fired and arm is back down
+    return ((timer.get() > Constants.Auton.midlineSpinUpTime) && !arm.GetBottomLimitSwitch()); //shots have been fired and arm is back down
   }
 }
 
