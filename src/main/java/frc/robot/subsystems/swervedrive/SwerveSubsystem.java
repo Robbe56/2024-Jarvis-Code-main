@@ -59,7 +59,7 @@ public class SwerveSubsystem extends SubsystemBase
   NetworkTableEntry ty = table.getEntry("ty");
   NetworkTableEntry ta = table.getEntry("ta");
 
-  NetworkTable secondTable = NetworkTableInstance.getDefault().getTable("shooter limelight");
+  NetworkTable secondTable = NetworkTableInstance.getDefault().getTable("limelight-shooter");
   NetworkTableEntry shootertx = secondTable.getEntry("tx");
   NetworkTableEntry shooterty = secondTable.getEntry("ty");
   NetworkTableEntry shooterta = secondTable.getEntry("ta");

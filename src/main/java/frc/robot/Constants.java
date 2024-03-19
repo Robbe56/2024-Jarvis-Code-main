@@ -46,7 +46,7 @@ public final class Constants
     public static final double WHEEL_LOCK_TIME = 10; // seconds
     public static final double autoForwardSpeed = 0.75; //creep forward speed when auto searching for note in m/s
     public static final double NoteKP = 0.035;
-    public static final double SpeakerTrackKP = 0.035;
+    public static final double SpeakerTrackKP = -0.05;
     public static final double TeleopAutoForwardSpeed = 1.5;
   }
 

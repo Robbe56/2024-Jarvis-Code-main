@@ -215,6 +215,7 @@ public class RobotContainer
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
     new JoystickButton(driverXbox, 8).onTrue(new InstantCommand(drivebase::zeroGyro));
+    new JoystickButton(driverXbox, 1).onTrue(m_turnToSpeaker);
     new JoystickButton(driverXbox, 2).onTrue(m_findNoteTeleop);
     //new JoystickButton(driverXbox, 1).onTrue(m_turnAndDetect);
     //new JoystickButton(driverXbox, 3).onTrue(m_turnToSpeaker);

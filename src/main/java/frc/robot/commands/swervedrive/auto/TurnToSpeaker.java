@@ -18,7 +18,6 @@ public class TurnToSpeaker extends Command {
   private final XboxController driverController;
   private final Timer timer;
   private final ChassisSpeeds autoTrackSpeakerSpeeds;
-  private double turnSpeed;
 
   public TurnToSpeaker(SwerveSubsystem m_swerveDrive, XboxController m_driverController) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -26,7 +25,7 @@ public class TurnToSpeaker extends Command {
     driverController = m_driverController;
     timer = new Timer();
 
-    autoTrackSpeakerSpeeds = new ChassisSpeeds(0,0, turnSpeed);
+    autoTrackSpeakerSpeeds = new ChassisSpeeds(0,0, 0);
 
     addRequirements(swerveDrive);
   }
@@ -41,7 +40,7 @@ public class TurnToSpeaker extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    turnSpeed = Constants.Drivebase.SpeakerTrackKP*swerveDrive.TrackSpeaker(); //multiply Limelight value by P factor
+    autoTrackSpeakerSpeeds.omegaRadiansPerSecond = Constants.Drivebase.SpeakerTrackKP*swerveDrive.TrackSpeaker(); //multiply Limelight value by P factor
     swerveDrive.drive(autoTrackSpeakerSpeeds);
   }
 
@@ -52,7 +51,7 @@ public class TurnToSpeaker extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.get() > Constants.Shooter.TrackNoteTime || !driverController.getRawButton(2); //go back to regular driving after 5 seconds or when you let go of button #2
+    return !driverController.getRawButton(1); //go back to regular driving when you let go of button #1
 
   }
 }
