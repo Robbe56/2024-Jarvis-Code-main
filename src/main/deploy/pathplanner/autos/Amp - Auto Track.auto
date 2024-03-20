@@ -14,7 +14,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Fire From Subwoofer"
+            "name": "Auto Aim And Fire"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Arm Down"
           }
         },
         {
@@ -42,6 +48,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "Arm Down"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Amp - Get 2nd - AutoTrack"
@@ -62,7 +74,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Fire From Distance"
+            "name": "Auto Aim And Fire"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Arm Down"
           }
         }
       ]

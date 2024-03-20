@@ -45,9 +45,16 @@ public final class Constants
     // Hold time on motor brakes when disabled
     public static final double WHEEL_LOCK_TIME = 10; // seconds
     public static final double autoForwardSpeed = 0.75; //creep forward speed when auto searching for note in m/s
+     public static final double TeleopAutoForwardSpeed = 1.5;
     public static final double NoteKP = 0.035;
-    public static final double SpeakerTrackKP = -0.05;
-    public static final double TeleopAutoForwardSpeed = 1.5;
+    public static final double AmpForwardSpeed = -1;
+    public static final double AmpKP = 0.06;
+
+    public static final double SpeakerTrackKP = -0.1;
+    public static final double AprilTagTrackForwardSpeed = -0.5;
+    public static final double AprilTagTrackSideSpeedKP = 0.05;
+   
+
   }
 
   public static final class Intake{
@@ -86,10 +93,13 @@ public final class Constants
     //Arm Encoder Values
     public static final int almostUpValue = 110;
     public static final int almostDownValue = 10;
-    public static final double aimedAtSpeaker = 55; //From center, 55 works
+    public static final double aimedAtSpeaker = 58; //From center, 55 works
     public static final int aimedFromSafe = 82; //90 to Shoot across field
     public static final int aimedFarShot = 52; //far shot from auto mode
     public static final int aimedAcrossField = 90; //arm angle to shoot across field
+
+    public static final double armEquationSlope = -0.95; //empirically found
+    public static final double armEquationIntercept = 72.9; //empirically found
     
     public static final double ampFeedSpeed = 0.8;
     public static final double ampShooterSpeed = -0.6;
@@ -115,7 +125,7 @@ public final class Constants
     
     
     //auto mode values
-    public static final double ShooterSpinUpTime = 1;
+    
     public static final double PreparedShotDelay = 1;
     public static final double AcrossFieldSpinUpTime = 1;
     public static final double NoteInAirTime = 1.6;
@@ -124,8 +134,12 @@ public final class Constants
     public static final double intakeTimer = 0;
     public static final double TrackNoteTime = .5;
 
-  
-    
+    public static final double WaitForArm = 0.2;
+    public static final double autoModeUnjamTime = 0.1;
+    public static final double ShooterSpinUpTime = 1.5;
+    public static final double AutoModeNoteInAir = 0.2;
+
+    public static final double MoveOffSubWoofer = 0.1;
     
     
   }
@@ -137,6 +151,7 @@ public final class Constants
     public static final double LEFT_X_DEADBAND  = 0.05;
     public static final double LEFT_Y_DEADBAND  = 0.05;
     public static final double RIGHT_X_DEADBAND = 0.05;
+    public static final double RotationDeadband = 0.05;
     public static final double TURN_CONSTANT    = 6;
   }
 

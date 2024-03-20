@@ -285,6 +285,10 @@ public class SwerveSubsystem extends SubsystemBase
     return shootertx.getDouble(0.0);
   }
 
+  public double TrackSpeakerHeight(){
+    return shooterty.getDouble(0.0);
+  }
+
   @Override
   public void periodic()
   {

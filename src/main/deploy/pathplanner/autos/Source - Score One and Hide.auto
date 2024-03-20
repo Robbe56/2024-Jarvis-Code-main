@@ -20,7 +20,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Fire From Subwoofer"
+            "name": "Auto Aim And Fire"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Arm Down"
           }
         },
         {
