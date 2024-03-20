@@ -5,6 +5,7 @@
 package frc.robot.commands.swervedrive.auto;
 
 
+import edu.wpi.first.hal.AllianceStationID;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
@@ -12,8 +13,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.Main;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 
 public class AutoAmpDrive extends Command {
@@ -41,26 +40,19 @@ public class AutoAmpDrive extends Command {
   public void initialize() {
     timer.reset();
     timer.start();
-    DriverStation.getAlliance();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    
+
+
 
 //assumes you are blue team
+//if red alliance, autoAmpSpeeds.omegaRadiansPerSecond = (swerveDrive.getHeading().getDegrees() - 90)*-Constants.Drivebase.AmpAlignKP;
 
-/*if (swerveDrive.getHeading().getDegrees() > -85){
-   autoAmpSpeeds.omegaRadiansPerSecond = -2; //turn CCW if heading is less than 85 degees
-   }
-
-else if (swerveDrive.getHeading().getDegrees() < -95){ 
-  autoAmpSpeeds.omegaRadiansPerSecond = 2; //turn CW if heading is less than 85 degees)
-}
-
-else {
-  */
-  autoAmpSpeeds.omegaRadiansPerSecond = 0; //stop turing
+  autoAmpSpeeds.omegaRadiansPerSecond = (90 + swerveDrive.getHeading().getDegrees())*-Constants.Drivebase.AmpAlignKP;
   autoAmpSpeeds.vxMetersPerSecond = Constants.Drivebase.AmpForwardSpeed;
   autoAmpSpeeds.vyMetersPerSecond = Constants.Drivebase.AmpKP*swerveDrive.TrackSpeaker(); //multiply Limelight value by P factor
 

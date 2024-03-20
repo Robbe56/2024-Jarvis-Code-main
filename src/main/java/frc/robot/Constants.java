@@ -45,10 +45,11 @@ public final class Constants
     // Hold time on motor brakes when disabled
     public static final double WHEEL_LOCK_TIME = 10; // seconds
     public static final double autoForwardSpeed = 0.75; //creep forward speed when auto searching for note in m/s
-     public static final double TeleopAutoForwardSpeed = 1.5;
+    public static final double TeleopAutoForwardSpeed = 1.5;
     public static final double NoteKP = 0.035;
     public static final double AmpForwardSpeed = -1;
     public static final double AmpKP = 0.06;
+    public static final double AmpAlignKP = 0.04;
 
     public static final double SpeakerTrackKP = -0.1;
     public static final double AprilTagTrackForwardSpeed = -0.5;
