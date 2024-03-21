@@ -30,7 +30,7 @@ public class AutoAmpDrive extends Command {
     timer = new Timer();
 
 
-    autoAmpSpeeds = new ChassisSpeeds(0,0, 0);
+    autoAmpSpeeds = new ChassisSpeeds(0,0,0);
 
     addRequirements(swerveDrive);
   }

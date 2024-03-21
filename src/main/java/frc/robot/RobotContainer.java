@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -61,7 +62,6 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
  */
 public class RobotContainer
 {
-
   // Subsystems
   private final IntakeSubsystem m_intake = new IntakeSubsystem();
   private final ShooterSubsystem m_shooter = new ShooterSubsystem();
@@ -201,7 +201,7 @@ public class RobotContainer
     Command driveFieldOrientedAnglularVelocity = drivebase.driveCommand(
         () -> MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
         () -> MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
-        () -> MathUtil.applyDeadband(-driverXbox.getRightX(), OperatorConstants.RotationDeadband));
+        () -> MathUtil.applyDeadband(Constants.Drivebase.SlowDownTurn*-driverXbox.getRightX(), OperatorConstants.RotationDeadband));
 
     Command driveFieldOrientedDirectAngleSim = drivebase.simDriveCommand(
         () -> MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
@@ -256,12 +256,12 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {    
     //AMP SIDE AUTOMODES
-    //return new PathPlannerAuto("Amp - Auto Track");
+    return new PathPlannerAuto("Amp - Auto Track");
 
     //CENTER AUTOMODES
     //return new PathPlannerAuto("Center - Under Stage");
     //return new PathPlannerAuto("Center Prototype - 4 Notes");
-    return new PathPlannerAuto("Center - 4 Notes");
+    //return new PathPlannerAuto("Center - 4 Notes");
    
     //SOURCE AUTOMODES
     //return new PathPlannerAuto("Source - Midline Robbery - Blue");

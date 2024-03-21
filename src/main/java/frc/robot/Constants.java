@@ -33,7 +33,7 @@ public final class Constants
     public static final double MAX_ACCELERATION = .1;
     public static final double TargetNoteTime = 1.5;
     public static final double AcrossFieldNoteTime = 1.5;
-    public static final double midlineSpinUpTime = 0.5;
+    public static final double midlineSpinUpTime = 0.8;
     public static final double TurnTarget = 80; //angle to turn to point at next note at midline
     public static final double LookAcrossFieldAngle = 10; //angle to turn to shooter back at our side of the field
     public static final double midlineTurnSpeed = 2;
@@ -48,12 +48,14 @@ public final class Constants
     public static final double TeleopAutoForwardSpeed = 1.5;
     public static final double NoteKP = 0.035;
     public static final double AmpForwardSpeed = -1;
-    public static final double AmpKP = 0.06;
+    public static final double AmpKP = 0.12;
     public static final double AmpAlignKP = 0.04;
 
     public static final double SpeakerTrackKP = -0.1;
     public static final double AprilTagTrackForwardSpeed = -0.5;
     public static final double AprilTagTrackSideSpeedKP = 0.05;
+
+    public static final double SlowDownTurn = 0.7;//slow down turn by this much
    
 
   }
@@ -136,9 +138,9 @@ public final class Constants
     public static final double TrackNoteTime = .5;
 
     public static final double WaitForArm = 0.2;
-    public static final double autoModeUnjamTime = 0.1;
+    public static final double autoModeUnjamTime = 0.075;
     public static final double ShooterSpinUpTime = 1.5;
-    public static final double AutoModeNoteInAir = 0.2;
+    public static final double AutoModeNoteInAir = 0.4;
 
     public static final double MoveOffSubWoofer = 0.1;
     

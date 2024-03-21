@@ -24,15 +24,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "Start Center - Blue"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Auto Target Note"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Start Center - Blue"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Run Intake"
+                }
+              }
+            ]
           }
         },
         {
