@@ -26,6 +26,8 @@ import frc.robot.commands.swervedrive.auto.MidlineUnturnCommandRed;
 import frc.robot.commands.swervedrive.auto.TargetNoteCommand;
 import frc.robot.commands.swervedrive.auto.TargetNoteCommandTeleop;
 import frc.robot.commands.swervedrive.auto.TargetNoteCrossFieldCommand;
+import frc.robot.commands.swervedrive.auto.TurnToBlueSource;
+import frc.robot.commands.swervedrive.auto.TurnToRedSource;
 import frc.robot.commands.swervedrive.auto.TurnToSpeaker;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
@@ -35,6 +37,8 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.commands.ArmDownAutoCommand;
 import frc.robot.commands.AutoIntake;
+import frc.robot.commands.AutoIntakeShort;
+import frc.robot.commands.DriveSlow;
 import frc.robot.commands.FireFromDistance;
 import frc.robot.commands.FireFromSubwoofer;
 import frc.robot.commands.FirePreparedShot;
@@ -46,6 +50,7 @@ import frc.robot.commands.MoveArmToSpeakerShot;
 import frc.robot.commands.PrepareToFire;
 import frc.robot.commands.RollerButtonCommand;
 import frc.robot.commands.ShootAcrossFieldCommand;
+import frc.robot.commands.TrapTargetCommand;
 import frc.robot.commands.UnwindHangerCommand;
 
 import java.io.File;
@@ -100,6 +105,11 @@ public class RobotContainer
   private final AutoAmpDrive m_autoAmpDrive;
   private final AutoModeAimAndFire m_autoAimFire;
   private final ArmDownAutoCommand m_armDown;
+  private final TurnToRedSource m_turnToRedSource;
+  private final TurnToBlueSource m_turnToBlueSource;
+  private final TrapTargetCommand m_trapTarget;
+  private final DriveSlow m_driveSlow;
+  private final AutoIntakeShort m_shortIntake;
 
 
   private final SendableChooser<Command> autoChooser;
@@ -125,13 +135,14 @@ public class RobotContainer
     NamedCommands.registerCommand("Target Note At Midline", new TargetNoteCrossFieldCommand(drivebase, m_intake, m_shooter, m_arm));
     NamedCommands.registerCommand("Prepare To Fire", new PrepareToFire(m_arm, m_shooter, m_intake));
     NamedCommands.registerCommand("Fire Prepared Shot", new FirePreparedShot(m_arm, m_shooter, m_intake));
-    NamedCommands.registerCommand("Fire From Midline", new FireFromMidline(m_arm, m_shooter, m_intake));
+    NamedCommands.registerCommand("Fire From Midline", new FireFromMidline(m_arm, drivebase, m_shooter));
     NamedCommands.registerCommand("Midline Turn Command", new MidlineTurnCommand(drivebase));
     NamedCommands.registerCommand("Midline Aim At Wall", new MidlineUnturnCommand(drivebase));
     NamedCommands.registerCommand("Midline Turn Command - Red", new MidlineTurnCommandRed(drivebase));
     NamedCommands.registerCommand("Midline Aim At Wall - Red", new MidlineUnturnCommandRed(drivebase));
     NamedCommands.registerCommand("Auto Aim And Fire", new AutoModeAimAndFire(drivebase, m_arm, m_shooter));
     NamedCommands.registerCommand("Arm Down", new ArmDownAutoCommand(m_arm));
+    NamedCommands.registerCommand("Short Timed Intake", new AutoIntakeShort(m_intake, m_shooter, m_arm));
 
     m_joystickArmCommand = new JoystickArmCommand(m_arm, operatorController);  //control arm manually with joysticks
     m_RollerButtonCommand = new RollerButtonCommand(m_shooter, m_intake, m_arm, driverXbox, operatorController); //control all rollers with buttons
@@ -145,20 +156,25 @@ public class RobotContainer
     m_hangCommand = new HangOnChainCommand(m_hang, m_arm, operatorController);
     m_unwind = new UnwindHangerCommand(m_hang, m_arm, operatorController);
     m_findNote = new TargetNoteCommand(drivebase, m_intake, m_shooter, m_arm);
-    m_findNoteTeleop = new TargetNoteCommandTeleop(drivebase, m_intake, m_shooter, m_arm, driverXbox);
+    m_findNoteTeleop = new TargetNoteCommandTeleop(drivebase, m_intake, m_shooter, m_arm, driverXbox, operatorController);
     m_turnToSpeaker = new TurnToSpeaker(drivebase, driverXbox);
     m_acrossFieldShot = new ShootAcrossFieldCommand(m_arm, m_shooter, m_intake);
     m_targetMidline = new TargetNoteCrossFieldCommand(drivebase, m_intake, m_shooter, m_arm);
-    m_fireFromMidline = new FireFromMidline(m_arm, m_shooter, m_intake);
+    m_fireFromMidline = new FireFromMidline(m_arm, drivebase, m_shooter);
     m_autoArm = new MoveArmAutoTarget(m_arm, drivebase, operatorController);
     m_autoAmpDrive = new AutoAmpDrive(drivebase, driverXbox);
     m_autoAimFire = new AutoModeAimAndFire(drivebase, m_arm, m_shooter);
     m_armDown = new ArmDownAutoCommand(m_arm);
+    m_turnToRedSource = new TurnToRedSource(drivebase, driverXbox);
+    m_turnToBlueSource = new TurnToBlueSource(drivebase, driverXbox);
+    m_trapTarget = new TrapTargetCommand(m_arm, m_shooter, operatorController);
+    m_shortIntake = new AutoIntakeShort(m_intake, m_shooter, m_arm);
 
     m_midlineTurn = new MidlineTurnCommand(drivebase);
     m_unturn = new MidlineUnturnCommand(drivebase);
     m_midlineTurnRed = new MidlineTurnCommandRed(drivebase);
     m_unturnRed = new MidlineUnturnCommandRed(drivebase);
+    m_driveSlow = new DriveSlow(drivebase, driverXbox);
     
 
     autoChooser = AutoBuilder.buildAutoChooser();
@@ -190,8 +206,8 @@ public class RobotContainer
     Command driveFieldOrientedDirectAngle = drivebase.driveCommand(
         () -> MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
         () -> MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
-        () -> driverXbox.getRightX(),
-        () -> driverXbox.getRightY());
+        () -> -driverXbox.getRightX(),
+        () -> -driverXbox.getRightY());
 
     // Applies deadbands and inverts controls because joysticks
     // are back-right positive while robot
@@ -229,18 +245,22 @@ public class RobotContainer
     new JoystickButton(driverXbox, 1).onTrue(m_turnToSpeaker);
     new JoystickButton(driverXbox, 2).onTrue(m_findNoteTeleop);
     new JoystickButton(driverXbox, 3).onTrue(m_autoAmpDrive);
+    new JoystickButton(driverXbox, 5).onTrue(m_turnToRedSource);
+    new JoystickButton(driverXbox, 6).onTrue(m_turnToBlueSource);
+
     //new JoystickButton(driverXbox, 1).onTrue(m_turnAndDetect);
     //new JoystickButton(driverXbox, 3).onTrue(m_turnToSpeaker);
 
     //new JoystickButton(driverXbox, 3).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
 
     //new JoystickButton(operatorController, 1).onTrue(m_autoAmpSequence);
-    new JoystickButton(operatorController, 3).onTrue(m_MoveArmToSpeakerShot);
-    new JoystickButton(operatorController, 2).onTrue(m_MoveArmSafeShot);
-    new JoystickButton(operatorController, 1).onTrue(m_autoArm);
+    new JoystickButton(operatorController, 2).onTrue(m_MoveArmToSpeakerShot);
+    new JoystickButton(operatorController, 1).onTrue(m_MoveArmSafeShot);
+    new JoystickButton(operatorController, 3).onTrue(m_autoArm);
+    new JoystickButton(operatorController, 9).onTrue(m_trapTarget);
 
-    new JoystickButton(operatorController, 8).onTrue(m_unwind);
-    new JoystickButton(operatorController, 10).onTrue(m_hangCommand);
+    new JoystickButton(operatorController, 7).onTrue(m_unwind);
+    new JoystickButton(operatorController,8).onTrue(m_hangCommand);
 
 
     //new JoystickButton(operatorController, 6).onTrue(new InstantCommand(m_shooter::FeedMotorFast));
@@ -256,17 +276,20 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {    
     //AMP SIDE AUTOMODES
-    return new PathPlannerAuto("Amp - Auto Track");
+    return new PathPlannerAuto("Amp Straight");
+    //return new PathPlannerAuto("Amp Skip Ground Note");
 
     //CENTER AUTOMODES
     //return new PathPlannerAuto("Center - Under Stage");
-    //return new PathPlannerAuto("Center Prototype - 4 Notes");
     //return new PathPlannerAuto("Center - 4 Notes");
    
     //SOURCE AUTOMODES
-    //return new PathPlannerAuto("Source - Midline Robbery - Blue");
-    //return new PathPlannerAuto("Source - Midline Robbery - Red");
-    //return new PathPlannerAuto("Source - Get 2 Far Notes");
+    //return new PathPlannerAuto("Source - Midline Robbery");
+    //return new PathPlannerAuto("Source - Score From Midline");
+    
+    //return new PathPlannerAuto("Source - Under Stage");
+    //return new PathPlannerAuto("Source - Score and Get 2");
+    
     //return new PathPlannerAuto("Source - Get Close Note - Get Far Note");
     //return new PathPlannerAuto("Source - Score One and Hide");
  

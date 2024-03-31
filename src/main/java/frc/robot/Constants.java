@@ -56,6 +56,8 @@ public final class Constants
     public static final double AprilTagTrackSideSpeedKP = 0.05;
 
     public static final double SlowDownTurn = 0.7;//slow down turn by this much
+
+    public static final double SlowDown = 0.75; //slow down robot by this much %
    
 
   }
@@ -68,6 +70,7 @@ public final class Constants
     public static final int SpinButton = 1;
     public static final double SpitOutSpeed = -1;
     public static final double IntakeWatchdog = 6;//intake will run for this long then command will stop
+    public static final double ShortIntakeTimer = 0.85; //intake command stops after this long in midline robbery
     
   }
 
@@ -101,8 +104,15 @@ public final class Constants
     public static final int aimedFarShot = 52; //far shot from auto mode
     public static final int aimedAcrossField = 90; //arm angle to shoot across field
 
+    public static final int ArmTopValue = 160; //encoder value when motor is all the way at the top
+
     public static final double armEquationSlope = -0.95; //empirically found
-    public static final double armEquationIntercept = 72.9; //empirically found
+    public static final double armEquationIntercept = 73.9; //empirically found
+
+    public static final int TrapEncoderSetting = 68;
+     public static final double TrapSpeed = -0.75;
+     public static final double TrapTime = 3.5;
+     public static final double TrapAirTime = 1.0;
     
     public static final double ampFeedSpeed = 0.8;
     public static final double ampShooterSpeed = -0.6;
@@ -117,8 +127,9 @@ public final class Constants
     
     public static final double feedLowSpeed = -0.5;
     public static final double feedHighSpeed = -1;
-    public static final double shootLowSpeed = -0.4;
+    public static final double shootLowSpeed = -0.65;
     public static final double shootHighSpeed = -.88; //speed when operator holds down right bumper
+   
     public static final double suckInSpeed = -0.4;
     public static final double shootAutoDistance = -.5;
 
@@ -131,6 +142,7 @@ public final class Constants
     
     public static final double PreparedShotDelay = 1;
     public static final double AcrossFieldSpinUpTime = 1;
+    public static final double MidlineNoteInAir = .75;
     public static final double NoteInAirTime = 1.6;
     public static final double NoteInAirAcrossFieldTime = .75;
     public static final double UnJamTime = 0.1 ;
@@ -151,10 +163,10 @@ public final class Constants
   {
 
     // Joystick Deadband
-    public static final double LEFT_X_DEADBAND  = 0.05;
-    public static final double LEFT_Y_DEADBAND  = 0.05;
-    public static final double RIGHT_X_DEADBAND = 0.05;
-    public static final double RotationDeadband = 0.05;
+    public static final double LEFT_X_DEADBAND  = 0.08;
+    public static final double LEFT_Y_DEADBAND  = 0.08;
+    public static final double RIGHT_X_DEADBAND = 0.08;
+    public static final double RotationDeadband = 0.08;
     public static final double TURN_CONSTANT    = 6;
   }
 

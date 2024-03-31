@@ -100,6 +100,11 @@ leftShooterMotor.configFactoryDefault();
     leftShooterMotor.set(Constants.Shooter.shootLowSpeed);
    }
 
+   public void ShootIntoTrapSpeed(){
+    rightShooterMotor.set(Constants.Shooter.TrapSpeed*.25);
+    leftShooterMotor.set(Constants.Shooter.TrapSpeed);
+   }
+
     public void ShooterIntoSpeakerSpeed(){
     rightShooterMotor.set(Constants.Shooter.shootHighSpeed);
     leftShooterMotor.set(Constants.Shooter.shootHighSpeed);

@@ -2,35 +2,41 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.68,
-      "y": 6.65
+      "x": 0.5,
+      "y": 4.1
     },
-    "rotation": 60.0
+    "rotation": 0.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "Fire From Subwoofer"
+            "pathName": "Source Straight Drive to Spot 1"
           }
         },
         {
-          "type": "race",
+          "type": "named",
+          "data": {
+            "name": "Auto Aim And Fire"
+          }
+        },
+        {
+          "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "Run Intake"
+                  "pathName": "Source - Understage"
                 }
               },
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "Start Amp Side - B"
+                  "name": "Arm Down"
                 }
               }
             ]
@@ -39,42 +45,23 @@
         {
           "type": "named",
           "data": {
-            "name": "Fire From Distance"
+            "name": "Auto Target Note"
           }
         },
         {
-          "type": "race",
+          "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "Run Intake"
+                  "pathName": "Return Source - Understage"
                 }
               },
               {
-                "type": "path",
-                "data": {
-                  "pathName": "Get 2nd Amp - Blue"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
                 "type": "named",
                 "data": {
-                  "name": "Run Intake"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Return Amp - Blue"
+                  "name": "Short Timed Intake"
                 }
               }
             ]
@@ -83,7 +70,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Fire From Distance"
+            "name": "Auto Aim And Fire"
           }
         }
       ]

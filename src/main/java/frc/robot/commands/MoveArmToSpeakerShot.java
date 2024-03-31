@@ -43,6 +43,6 @@ public class MoveArmToSpeakerShot extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !operatorController.getRawButton(3);
+    return !operatorController.getRawButton(2);
   }
 }

@@ -4,31 +4,36 @@
 
 package frc.robot.commands.swervedrive.auto;
 
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 
 public class FireFromMidline extends Command {
   /** Creates a new FireFromSubwoofer. */
   private final ArmSubsystem arm;
   private final ShooterSubsystem shooter;
-  private final IntakeSubsystem intake;
+  private final SwerveSubsystem drivebase;
   private final Timer timer;
 
+  private final ChassisSpeeds chassisSpeeds;
+
   
-  public FireFromMidline(ArmSubsystem m_arm, ShooterSubsystem m_shooter, IntakeSubsystem m_intake) {
+  public FireFromMidline(ArmSubsystem m_arm, SwerveSubsystem m_drivebase, ShooterSubsystem m_shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     
     //Shooting from the midline back across the field
     arm = m_arm;
     shooter = m_shooter;
-    intake = m_intake;
+    drivebase = m_drivebase;
     timer = new Timer();
 
-    addRequirements(arm, shooter);
+    chassisSpeeds = new ChassisSpeeds(0,0, 0);
+
+    addRequirements(arm, shooter, drivebase);
   }
 
   // Called when the command is initially scheduled.
@@ -42,57 +47,52 @@ public class FireFromMidline extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+  
 
-    if (timer.get() < Constants.Shooter.intakeTimer){
-      arm.StopArm();
-      intake.intakeActive();
-      shooter.StopFeedRoller();
-      shooter.StopShooter();
-
-    } 
+  //move arm to correct postion 
+  if (arm.GetArmEncoderPosition() < Constants.Shooter.aimedAtSpeaker){
+  arm.ArmUpCommand();
+  }
+  else arm.ArmHoldPosition();
 
   
-    
-    // arm contol
-    if (timer.get() < (Constants.Auton.midlineSpinUpTime)){
-      if (arm.GetArmEncoderPosition() < Constants.Shooter.aimedAtSpeaker){
-        arm.ArmUpCommand();
-    }
-      else {arm.ArmHoldPosition();}
-
-  } else arm.ArmDownCommand();
-    
-    //shooter control
-    if (timer.get() < Constants.Shooter.UnJamTime){
-      shooter.ShooterMotorsBackward();;
-      shooter.FeedMotorsBackward();
-    }
-
-    if (timer.get() > Constants.Shooter.UnJamTime && timer.get() < Constants.Auton.midlineSpinUpTime ){
-      shooter.ShooterAutoFarSpeed();
-      shooter.StopFeedRoller();
-    }
-
-    if (timer.get() > Constants.Auton.midlineSpinUpTime ) {
-      shooter.ShooterAutoFarSpeed();
-      shooter.FeedMotorFast();
-    }
+  //shooter wheel control
+  if (timer.get() < Constants.Shooter.WaitForArm){
+    shooter.StopFeedRoller();
+    shooter.StopShooter();
+  }
+  
+  if (timer.get() > Constants.Shooter.WaitForArm && timer.get() < (Constants.Shooter.WaitForArm + Constants.Shooter.autoModeUnjamTime)){
+    shooter.FeedMotorsBackward();
+    shooter.ShooterMotorsBackward();
   }
 
+  if (timer.get() > (Constants.Shooter.WaitForArm + Constants.Shooter.autoModeUnjamTime) && timer.get() < (Constants.Shooter.WaitForArm + Constants.Shooter.autoModeUnjamTime + Constants.Shooter.AcrossFieldSpinUpTime)){
+    shooter.StopFeedRoller();
+    shooter.ShooterIntoAmpSpeed();
+  }
+
+  if (timer.get() > (Constants.Shooter.WaitForArm + Constants.Shooter.autoModeUnjamTime + Constants.Shooter.AcrossFieldSpinUpTime) && timer.get() < (Constants.Shooter.WaitForArm + Constants.Shooter.autoModeUnjamTime + Constants.Shooter.AcrossFieldSpinUpTime + Constants.Shooter.MidlineNoteInAir)){
+    shooter.FeedMotorFast();
+    shooter.ShooterIntoAmpSpeed();
+  }
+  drivebase.drive(chassisSpeeds);
+}
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    timer.stop();
     shooter.StopFeedRoller();
     shooter.StopShooter();
     arm.StopArm();
-    timer.stop();
+
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return ((timer.get() > Constants.Auton.midlineSpinUpTime) && !arm.GetBottomLimitSwitch()); //shots have been fired and arm is back down
+    return timer.get() > (Constants.Shooter.WaitForArm + Constants.Shooter.autoModeUnjamTime + Constants.Shooter.AcrossFieldSpinUpTime + Constants.Shooter.MidlineNoteInAir);
+
   }
 }
-

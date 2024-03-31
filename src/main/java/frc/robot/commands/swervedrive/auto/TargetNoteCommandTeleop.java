@@ -21,14 +21,16 @@ public class TargetNoteCommandTeleop extends Command {
   private final ShooterSubsystem shooter;
   private final ArmSubsystem arm;
   private final XboxController driverController;
+  private final XboxController operatorController;
   private final Timer timer;
   private final ChassisSpeeds autoDriveSpeeds;
 
-  public TargetNoteCommandTeleop(SwerveSubsystem m_swerveDrive, IntakeSubsystem m_intake, ShooterSubsystem m_shooter, ArmSubsystem m_arm, XboxController m_driverController) {
+  public TargetNoteCommandTeleop(SwerveSubsystem m_swerveDrive, IntakeSubsystem m_intake, ShooterSubsystem m_shooter, ArmSubsystem m_arm, XboxController m_driverController, XboxController m_operatorController) {
     // Use addRequirements() here to declare subsystem dependencies.
     swerveDrive = m_swerveDrive;
     intake = m_intake;
     driverController = m_driverController;
+    operatorController = m_operatorController;
     shooter = m_shooter;
     arm = m_arm;
     timer = new Timer();
@@ -68,7 +70,7 @@ public class TargetNoteCommandTeleop extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !driverController.getRawButton(2); //go back to regular driving after letting go of button #2
+    return !driverController.getRawButton(2) || operatorController.getRawButton(5); //go back to regular driving after letting go of button #2 or if ooerator starts shooting rollers
 
   }
 }

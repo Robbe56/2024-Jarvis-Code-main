@@ -289,6 +289,7 @@ public class SwerveSubsystem extends SubsystemBase
     return shooterty.getDouble(0.0);
   }
 
+
   @Override
   public void periodic()
   {
@@ -296,6 +297,7 @@ public class SwerveSubsystem extends SubsystemBase
   SmartDashboard.putNumber("Limelight Note Target", tx.getDouble(0.0));
   SmartDashboard.putNumber("Limelight Shooter Target", shootertx.getDouble(0.0));
   SmartDashboard.putNumber("Robot Heading Degrees", getHeading().getDegrees());
+
   }
 
   @Override

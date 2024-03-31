@@ -5,12 +5,15 @@
 package frc.robot.commands.swervedrive.auto;
 
 
+import java.util.Optional;
+
 import edu.wpi.first.hal.AllianceStationID;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
@@ -45,17 +48,29 @@ public class AutoAmpDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+  /*
+  Optional<Alliance> color = DriverStation.getAlliance();
+  if (color.isPresent()) {
+    if (color.get() == Alliance.Red) {
+        SmartDashboard.putString("Alliance Color", "Red");
+    }
+    if (color.get() == Alliance.Blue) {
+      SmartDashboard.putString("Alliance Color", "Blue");
+    }
 
+    else {
+      SmartDashboard.putString("Alliance Color", "No Alliance Color Yet");
+    }
+  }
+  */
+ 
 
-
-//assumes you are blue team
+//now set up for red
 //if red alliance, autoAmpSpeeds.omegaRadiansPerSecond = (swerveDrive.getHeading().getDegrees() - 90)*-Constants.Drivebase.AmpAlignKP;
-
-  autoAmpSpeeds.omegaRadiansPerSecond = (90 + swerveDrive.getHeading().getDegrees())*-Constants.Drivebase.AmpAlignKP;
+  autoAmpSpeeds.omegaRadiansPerSecond = (swerveDrive.getHeading().getDegrees() - 90)*-Constants.Drivebase.AmpAlignKP; //red 
+  //autoAmpSpeeds.omegaRadiansPerSecond = (90 + swerveDrive.getHeading().getDegrees())*-Constants.Drivebase.AmpAlignKP; //blue
   autoAmpSpeeds.vxMetersPerSecond = Constants.Drivebase.AmpForwardSpeed;
   autoAmpSpeeds.vyMetersPerSecond = Constants.Drivebase.AmpKP*swerveDrive.TrackSpeaker(); //multiply Limelight value by P factor
-
 
        
 swerveDrive.drive(autoAmpSpeeds);

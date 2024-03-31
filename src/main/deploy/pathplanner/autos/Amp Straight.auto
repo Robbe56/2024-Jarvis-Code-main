@@ -1,0 +1,112 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.5,
+      "y": 7.0
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp Straight Drive to Spot 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Auto Aim And Fire"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Arm Down"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Amp Straight Get 2"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Auto Target Note"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp Return After 2nd"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Auto Aim And Fire"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Arm Down"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Amp Straight Get 3rd"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Auto Target Note"
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Amp Return After 3rd"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Run Intake"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Blue Autos",
+  "choreoAuto": false
+}

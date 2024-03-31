@@ -2,69 +2,44 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.36086297850199,
-      "y": 5.539225686154654
+      "x": 0.5,
+      "y": 4.1
     },
-    "rotation": 0
+    "rotation": 0.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "Fire From Subwoofer"
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Start Center - Blue"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Run Intake"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Center Get Back - Blue"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Prepare To Fire"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Fire Prepared Shot"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Center - Get Mid Note"
+            "pathName": "Source Straight Drive to Spot 1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Auto Aim And Fire"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Start Source Side - Blue"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Arm Down"
+                }
+              }
+            ]
           }
         },
         {
@@ -74,19 +49,19 @@
           }
         },
         {
-          "type": "deadline",
+          "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Center - Get Back after mid"
+                  "pathName": "Return Source - Blue"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "Prepare To Fire"
+                  "name": "Short Timed Intake"
                 }
               }
             ]
@@ -95,13 +70,26 @@
         {
           "type": "named",
           "data": {
-            "name": "Fire Prepared Shot"
+            "name": "Auto Aim And Fire"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Center Prototype - Get Amp Note"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Get 3rd Source - Blue"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Arm Down"
+                }
+              }
+            ]
           }
         },
         {
@@ -111,28 +99,22 @@
           }
         },
         {
-          "type": "deadline",
+          "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Center Prototype - Get Back after amp"
+                  "pathName": "Source - Last Return"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "Prepare To Fire"
+                  "name": "Short Timed Intake"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Fire From Distance"
           }
         }
       ]

@@ -35,7 +35,7 @@ public void StopArm(){
 
 public void ArmJoystickControl(double armCommandSpeed){
 
-  if ((armCommandSpeed < 0 && armAtAmp.get() == false) || (armCommandSpeed > 0 && armAtRest.get() == false)){
+  if ((armCommandSpeed < 0 && armMotor.getSelectedSensorPosition()/1000 > Constants.Shooter.ArmTopValue) || (armCommandSpeed > 0 && armAtRest.get() == false)){
    armMotor.set(0);
   } 
   else if (armCommandSpeed < Constants.Shooter.armUpSpeedMax && armMotor.getSelectedSensorPosition()/1000 < Constants.Shooter.almostUpValue){
@@ -90,7 +90,7 @@ public void ArmJoystickControl(double armCommandSpeed){
 }
 
 public void ArmUpCommand(){
-  if (armAtAmp.get() == false){ //if pressing top limit switch
+  if (armMotor.getSelectedSensorPosition()/1000 > Constants.Shooter.ArmTopValue){ //if pressing top limit switch
     armMotor.stopMotor();
   }
   if (armMotor.getSelectedSensorPosition()/1000 < Constants.Shooter.almostUpValue){ 
@@ -104,7 +104,7 @@ public void ArmUpCommand(){
   
  }
  public void ArmUpFastCommand(){
-  if (armAtAmp.get() == false){ //if pressing top limit switch
+  if (armMotor.getSelectedSensorPosition()/1000 > Constants.Shooter.ArmTopValue){ //if pressing top limit switch
     armMotor.stopMotor();
 
   } else armMotor.set(Constants.Shooter.armUpSpeedMax);

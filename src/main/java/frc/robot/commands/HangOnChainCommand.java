@@ -43,6 +43,6 @@ public class HangOnChainCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !operatorController.getRawButton(10); //stop command when operator lets go of start button
+    return !operatorController.getRawButton(8); //stop command when operator lets go of start button
   }
 }
