@@ -31,9 +31,11 @@ import frc.robot.commands.swervedrive.auto.TurnToRedSource;
 import frc.robot.commands.swervedrive.auto.TurnToSpeaker;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import pabeles.concurrency.ConcurrencyOps.NewInstance;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.HangSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LEDs;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.commands.ArmDownAutoCommand;
 import frc.robot.commands.AutoIntake;
@@ -44,6 +46,7 @@ import frc.robot.commands.FireFromSubwoofer;
 import frc.robot.commands.FirePreparedShot;
 import frc.robot.commands.HangOnChainCommand;
 import frc.robot.commands.JoystickArmCommand;
+import frc.robot.commands.LEDCommand;
 import frc.robot.commands.MoveArmAutoTarget;
 import frc.robot.commands.MoveArmToSafeZoneShot;
 import frc.robot.commands.MoveArmToSpeakerShot;
@@ -72,6 +75,7 @@ public class RobotContainer
   private final ShooterSubsystem m_shooter = new ShooterSubsystem();
   private final ArmSubsystem m_arm = new ArmSubsystem();
   private final HangSubsystem m_hang = new HangSubsystem();
+  private final LEDs m_led = new LEDs();
 
   public double armControlValue;
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
@@ -110,6 +114,7 @@ public class RobotContainer
   private final TrapTargetCommand m_trapTarget;
   private final DriveSlow m_driveSlow;
   private final AutoIntakeShort m_shortIntake;
+  private final LEDCommand m_ledCommand;
 
 
   private final SendableChooser<Command> autoChooser;
@@ -150,6 +155,7 @@ public class RobotContainer
     m_intake.setDefaultCommand(m_RollerButtonCommand);
     m_shooter.setDefaultCommand(m_RollerButtonCommand);
     m_arm.setDefaultCommand(m_joystickArmCommand);
+  
 
     m_MoveArmToSpeakerShot = new MoveArmToSpeakerShot(m_arm, operatorController);
     m_MoveArmSafeShot = new MoveArmToSafeZoneShot(m_arm, operatorController);
@@ -169,6 +175,10 @@ public class RobotContainer
     m_turnToBlueSource = new TurnToBlueSource(drivebase, driverXbox);
     m_trapTarget = new TrapTargetCommand(m_arm, m_shooter, operatorController);
     m_shortIntake = new AutoIntakeShort(m_intake, m_shooter, m_arm);
+    m_ledCommand = new LEDCommand(m_led, m_shooter);
+
+    m_led.setDefaultCommand(m_ledCommand);
+    
 
     m_midlineTurn = new MidlineTurnCommand(drivebase);
     m_unturn = new MidlineUnturnCommand(drivebase);

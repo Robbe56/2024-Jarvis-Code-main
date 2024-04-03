@@ -94,7 +94,7 @@ public final class Constants
     public static final int noteInFeederSensor = 0;
     public static final int LEDPWMPort = 0;
     public static final int analogNoteSensor = 1;
-    public static final double noteSensorThreshold = 3;
+    public static final double noteSensorThreshold = 300;
 
     //Arm Encoder Values
     public static final int almostUpValue = 110;

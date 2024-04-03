@@ -28,7 +28,10 @@ public class LEDCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    leds.noteLight(shooter.getNoteSensor());
+    if (shooter.getAnalogNoteSensor() == true){
+      leds.turnLEDGreen();
+    }
+    else leds.turnLEDOff();
   }
 
   // Called once the command ends or is interrupted.

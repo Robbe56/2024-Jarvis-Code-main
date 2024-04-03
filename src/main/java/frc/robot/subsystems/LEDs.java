@@ -27,23 +27,19 @@ public class LEDs extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void noteLight (boolean isNoteinRobot)
-  {
-    if(isNoteinRobot = true)
-    {
-      for (int i = 0; i < adLEDBuffer.getLength(); i++)
+  public void turnLEDGreen(){
+        for (int i = 0; i < adLEDBuffer.getLength(); i++)
       {
         adLEDBuffer.setRGB(i, 0, 192, 0);
-      }
-    }
-
-      else
-    {
-      for (int i = 0; i < adLEDBuffer.getLength(); i++)
+      }  
+      adLED.setData(adLEDBuffer);
+  }
+  
+    public void turnLEDOff(){
+        for (int i = 0; i < adLEDBuffer.getLength(); i++)
       {
         adLEDBuffer.setRGB(i, 0, 0, 0);
-      }
-    }
+      }  
     adLED.setData(adLEDBuffer);
   }
 

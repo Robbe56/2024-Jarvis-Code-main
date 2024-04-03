@@ -67,7 +67,7 @@ public class TargetNoteCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.get() > Constants.Auton.TargetNoteTime; //stop auto driving after this much time
+    return (timer.get() > Constants.Auton.TargetNoteTime || shooter.getAnalogNoteSensor()); //stop auto driving after this much time or if note sensor detects a note
 
   }
 }
